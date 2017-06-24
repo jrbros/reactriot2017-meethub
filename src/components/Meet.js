@@ -22,9 +22,7 @@ export class Meet extends PureComponent {
                         <Item key={index}>
                             <Card
                                 {...user}
-                                languages={
-                                    user.languages.filter(lang => this.props.languages.includes(lang.toLowerCase()))
-                                }
+                                languages={user.languages.slice(0, 6)}
                                 />
                         </Item>
                     ))
@@ -36,12 +34,10 @@ export class Meet extends PureComponent {
 
 Meet.defaultProps = {
     users: [],
-    languages: []
 };
 
 Meet.propTypes = {
     users: PropTypes.array,
-    languages: PropTypes.array
 };
 
 export default Meet;
