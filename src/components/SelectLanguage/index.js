@@ -20,8 +20,10 @@ const StyledSelectLanguage = styled.div`
     color: ${props => props.theme.gray};
 
     /* Visual */
+    cursor: pointer;
     background-color: #ffffff;
     border-left: 1px solid ${props => props.theme.grayLight};
+    transition: border .2s linear;
 `;
 
 const Toggle = styled.div`
@@ -43,6 +45,7 @@ const Options = styled.ul`
     border: 1px solid ${props => props.theme.grayLight};
     list-style-type: none;
     border-radius: 0 0 3px 3px;
+    transition: all .15s linear;
 `;
 
 const Option = styled.li`
@@ -56,6 +59,7 @@ const Option = styled.li`
     margin-bottom: .5625rem;
 
     /* Visual */
+    cursor: pointer;
     border: 1px solid ${props => props.theme.gray};
     border-radius: 3px;
 `
@@ -99,6 +103,7 @@ class SelectLanguage extends Component {
    handleClickOutside(event) {
         const domNode = this.node; // eslint-disable-line react/no-find-dom-node
         if (this.state.open && (!domNode || !domNode.contains(event.target))) {
+            this.props.disableSearch();
             this.setState({
                 open: false
             });
@@ -112,7 +117,7 @@ class SelectLanguage extends Component {
 
     handleToggleLanguage = event => {
         event.preventDefault();
-        const updatedLanguages = this.state.languages.map(({name, active}) => ({
+        const updatedLanguages = this.state.languages && this.state.languages.map(({name, active}) => ({
             name,
             active: name === event.target.value ? !active : active
         }));
@@ -124,11 +129,12 @@ class SelectLanguage extends Component {
 
     render() {
         const { languages, open } = this.state;
-        const { theme: { gray }} = this.props;
+        const { theme: { gray }, activeSearch} = this.props;
         const activeLength = languages.filter(language => language.active).length;
         return (
-            <div ref={node => (this.node = node)} >
+            <div ref={node => (this.node = node)}>
                 <StyledSelectLanguage
+                    onClick={activeSearch}
                     style={{
                         borderBottom: open ? '2px solid #000' : '2px solid transparent'
                     }}
@@ -136,30 +142,31 @@ class SelectLanguage extends Component {
                     <Toggle onClick={this.handleToggle}>
                         { activeLength ? `${activeLength} ${pluralize('language', activeLength)}` : 'Filter by language' }
                     </Toggle>
-                    {
-                        open ? (
-                          <Options>
-                              {
-                                  languages.map(({name, active}, index) => (
-                                      <Option key={index} style={{
-                                        backgroundColor: active ? gray : 'transparent',
-                                        color: active ? '#fff' : gray
-                                      }}>
-                                          <Label htmlFor={name} />
-                                          <Checkbox
-                                            type='checkbox'
-                                            id={name}
-                                            value={name}
-                                            checked={active}
-                                            onChange={this.handleToggleLanguage}
-                                          />
-                                          {name}
-                                      </Option>
-                                  ))
-                              }
-                          </Options>
-                        ) : null
-                    }
+                    <Options
+                      style={{
+                        visibility: open ? 'visible' : 'hidden',
+                        opacity: open ? '1' : '0'
+                      }}
+                    >
+                        {
+                            languages.map(({name, active}, index) => (
+                                <Option key={index} style={{
+                                  backgroundColor: active ? gray : 'transparent',
+                                  color: active ? '#fff' : gray
+                                }}>
+                                    <Label htmlFor={name} />
+                                    <Checkbox
+                                      type='checkbox'
+                                      id={name}
+                                      value={name}
+                                      checked={active}
+                                      onChange={this.handleToggleLanguage}
+                                    />
+                                    {name}
+                                </Option>
+                            ))
+                        }
+                    </Options>
                 </StyledSelectLanguage>
             </div>
         );

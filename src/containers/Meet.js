@@ -10,7 +10,7 @@ import { searchUsers } from '../ducks/users';
 
 
 const MeetContainer = connect(
-    ({users}) => ({users}),
+    ({users, app}) => ({users, searchIsActive: app.searchIsActive}),
     dispatch => bindActionCreators({searchUsers}, dispatch)
 )(Meet);
 

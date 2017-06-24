@@ -9,6 +9,25 @@ const Wrapper = styled.div`
     /* Box model */
     display: flex;
     flex-direction: column;
+    position: relative;
+    height: 100%;
+
+    &:before {
+        /* Box model */
+        content: '';
+        top: -30px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        z-index: 0;
+
+        /* Visual */
+        visibility: ${props => props.searchIsActive ? 'visible' : 'hidden'};
+        opacity: ${props => props.searchIsActive ? '1' : '0'};
+        background-color: rgba(0, 0, 0, .6);
+        transition:  all .2s linear;
+    }
 `;
 
 const List = styled.ul`
@@ -38,11 +57,12 @@ export class Meet extends PureComponent {
     }
 
     render() {
+        const { users: { usersInformations, loadingIncrement, empty}, searchIsActive } = this.props;
         return (
-            <Wrapper>
+            <Wrapper searchIsActive={searchIsActive}>
                 <List>
                     {
-                        this.props.users.usersInformations.map((user, index) => (
+                        usersInformations.map((user, index) => (
                             <Item key={index}>
                                 <Card
                                     {...user}
@@ -53,10 +73,10 @@ export class Meet extends PureComponent {
                     }
                 </List>
                 {
-                    !this.props.users.empty ?
+                    !empty ?
                         <Button
                           onClick={this.handleIncrementPage}
-                          loading={this.props.users.loadingIncrement}>
+                          loading={loadingIncrement}>
                           +
                         </Button> : null
                 }

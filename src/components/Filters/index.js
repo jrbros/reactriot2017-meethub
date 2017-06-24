@@ -14,6 +14,8 @@ const StyledFilters= styled.div`
     width: 100%;
     height: 48px;
     margin-top: -18px;
+    z-index: 3;
+    position: relative;
 
     /* Visual */
     border-radius: 3px;
@@ -43,6 +45,11 @@ const Button = styled.button`
 
     &:focus {
         outline: none;
+    }
+
+    &:disabled {
+        background-color: ${lighten(0.3, '#000')};
+        color: ${lighten(0.7, '#fff')};
     }
 `;
 
@@ -160,21 +167,33 @@ class Filters extends PureComponent {
         }
     }
 
+    activeSearch = event => {
+        event.preventDefault();
+        this.props.activeSearch();
+    }
+
     render() {
+        const { geoLocation, activeSearch, disableSearch, languages } = this.props;
         return (
             <StyledFilters>
                 <Form onSubmit={this.handleSubmit}>
                     <StyledSelectPlaces
-                      value={{placeId: this.props.geoLocation.placeId}}
+                      value={{placeId: geoLocation.placeId}}
                       onChange={this.handleChangeLocation}
+                      onFocus={activeSearch}
+                      onClose={disableSearch}
                       clearable={false}
                       placeholder='Select city...'
                       autocompletionRequest={{
                           types: ['(cities)']
                         }}
                     />
-                <SelectLanguage onChange={this.handleChangeLanguage} />
-                <Button disabled={this.props.geoLocation.empty && this.props.languages.empty}>
+                <SelectLanguage
+                    onChange={this.handleChangeLanguage}
+                    disableSearch={disableSearch}
+                    activeSearch={activeSearch}
+                />
+                <Button disabled={geoLocation.empty && languages.empty}>
                     Search
                 </Button>
                 </Form>
