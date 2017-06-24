@@ -16,13 +16,11 @@ export class Meet extends React.PureComponent { // eslint-disable-line react/pre
 
     render() {
         if (this.props.users.error !== null) return <div>FAKE ERROR... {this.props.users.error}</div>
-        if (this.props.users.loading === true) return <div>FAKE LOADER...</div>
-
         return (
             <List>
                 {
-                    this.props.users.users.map(user => (
-                        <Item key={`${user.id}-${user.login}`}>
+                    this.props.users.users.map((user, index) => (
+                        <Item key={index}>
                             <Card {...user} />
                         </Item>
                     ))

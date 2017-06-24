@@ -10,11 +10,15 @@ import 'react-virtualized/styles.css'
 import 'react-virtualized-select/styles.css'
 import './global-styles';
 
+import loaderConnector from './connectors/loader';
 import App from './containers/App';
-import Meet from './containers/Meet.js';
+import Meet from './containers/Meet';
+import Loader from './components/Loader';
 
 import store from './store';
 import theme from './theme';
+
+const LoadingMeetContainer = loaderConnector(Loader(Meet));
 
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -23,7 +27,7 @@ export default () => (
         <ThemeProvider theme={theme}>
             <App>
                 <Router history={history}>
-                    <Route path='/' component={Meet}/>
+                    <Route path='/' component={LoadingMeetContainer}/>
                 </Router>
             </App>
          </ThemeProvider>
