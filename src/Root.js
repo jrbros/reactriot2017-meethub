@@ -5,6 +5,7 @@ import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import 'normalize.css/normalize.css';
+import './global-styles';
 
 import App from './components/App';
 import Meet from './containers/Meet.js';
