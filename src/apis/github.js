@@ -10,7 +10,7 @@ const ERROR_HANDLER = {
     null: 'An unhandled error occured while calling github API...'
 }
 
-function buildSearchQuery(searchParameters) {
+export function buildSearchQuery(searchParameters) {
     /**
     * Build a github search query from a parameter object.
     * @param {Object} searchParameters The parameter object used to search.
@@ -30,7 +30,7 @@ function buildSearchQuery(searchParameters) {
           .join('+');
 }
 
-function searchUsers(searchQuery) {
+export function searchUsers(searchQuery) {
     /**
      * Call the github search api by passing a query.
      * @param {String} searchQuery The query to pass in the url.
@@ -44,7 +44,7 @@ function searchUsers(searchQuery) {
     );
 }
 
-function handleErrorMessage(error) {
+export function handleErrorMessage(error) {
     if (!error || !error.response || ERROR_HANDLER[error.response.status] === undefined) return ERROR_HANDLER[null];
     return ERROR_HANDLER[error.response.status];
 }
