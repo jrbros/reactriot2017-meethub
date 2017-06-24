@@ -18,7 +18,7 @@ export class Meet extends React.PureComponent { // eslint-disable-line react/pre
         return (
             <List>
                 {
-                    this.props.users.usersInformations.map((user, index) => (
+                    this.props.users.map((user, index) => (
                         <Item key={index}>
                             <Card {...user} />
                         </Item>
