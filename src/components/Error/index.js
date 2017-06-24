@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-const LoaderHOC = (WrappedComponent) =>
+const ErrorHOC = (WrappedComponent) =>
   class Loader extends Component {
       render() {
-        const { loading, ...props} = this.props;
+        const { error, ...props } = this.props;
         return (
-            loading ? <div>Loading...</div> :
+            error ? <div>{error}</div> :
                 <WrappedComponent {...props}/>
         );
       }
   };
 
-export default LoaderHOC;
+export default ErrorHOC;

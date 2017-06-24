@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
 
-export default connect(
+const errorConnector = connect(
   ({users}, {children}) => ({
-    loading: users.loading,
+    error: users.error,
     children
   }),
   null,
   null
 );
+
+export default errorConnector;

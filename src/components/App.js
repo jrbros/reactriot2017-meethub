@@ -13,9 +13,6 @@ class App extends Component {
             <div>
                 <Header />
                 <Filters />
-                {
-                  this.props.users.error ? <div>FAKE ERROR... {this.props.users.error}</div> : null
-                }
                 {this.props.children}
             </div>
         );

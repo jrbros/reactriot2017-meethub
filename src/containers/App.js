@@ -5,8 +5,6 @@ import App from '../components/App';
 import { askForGeoLocation } from '../ducks/geoLocation';
 
 export default connect(
-    ({users}) => ({
-        users
-    }),
+    null,
     dispatch => bindActionCreators({askForGeoLocation}, dispatch)
 )(App);
