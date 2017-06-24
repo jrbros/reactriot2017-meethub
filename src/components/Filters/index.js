@@ -64,13 +64,17 @@ class Filters extends PureComponent {
 
 
 Filters.defaultProps = {
-
+    updateLanguages: () => null,
+    updateGeoLocation: () => null,
+    geoLocation: {},
+    languages: {}
 };
 
 Filters.propTypes = {
-    img: PropTypes.string,
-    login: PropTypes.string,
-    html_url: PropTypes.string,
+    updateLanguages: PropTypes.func,
+    updateGeoLocation: PropTypes.func,
+    geoLocation: PropTypes.object,
+    languages: PropTypes.object
 };
 
 export default Filters;

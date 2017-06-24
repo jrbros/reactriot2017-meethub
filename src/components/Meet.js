@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-// import { PropTypes } from 'prop-types';
+import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import Card from './Card';
 
@@ -35,9 +35,13 @@ export class Meet extends PureComponent {
 }
 
 Meet.defaultProps = {
+    users: [],
+    languages: []
 };
 
 Meet.propTypes = {
+    users: PropTypes.array,
+    languages: PropTypes.array
 };
 
 export default Meet;
