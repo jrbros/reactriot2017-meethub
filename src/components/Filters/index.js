@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import VirtualizedSelect from 'react-virtualized-select'
 import SelectPlaces from 'react-select-places'
+import { lighten } from 'polished'
 
 const StyledFilters= styled.div`
     /* Box model */
@@ -41,7 +42,26 @@ const StyledSelectPlaces = styled(SelectPlaces)`
 
     .Select-menu-outer {
         box-shadow: none;
-        width: 444px;
+        width: 680px;
+        margin-left: -1px;
+        border: 1px solid ${props => props.theme.grayLight};
+    }
+
+    .Select-option {
+        color: ${props => props.theme.gray};
+        font-size: .9375rem;
+        padding: .4rem .8rem;
+    }
+
+    &.is-focused:not(.is-open) > .Select-control {
+        border-color: none !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+    }
+
+    .Select-option.is-focused {
+        color: ${props => props.theme.gray};
+        background-color: ${lighten(0.4, '#00c9ff')};
     }
 `;
 
