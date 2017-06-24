@@ -9,17 +9,13 @@ class App extends Component {
     }
 
     render() {
-        const { empty, location } = this.props.geoLocation;
         return (
             <div>
                 <Header />
                 <Filters />
-                {
-                    empty ? 'You refused geoloc' : location
-                }
                 {this.props.children}
             </div>
-        )
+        );
     }
 }
 
