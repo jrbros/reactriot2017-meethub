@@ -1,6 +1,6 @@
 import fetch from '../lib/fetch';
 
-const SEARCH_API = 'https://api.github.com/search/user';
+const SEARCH_API = 'https://api.github.com/search/users';
 
 const ERROR_HANDLER = {
     '400': 'Something is going wrong with the github API. Please try again later...',
