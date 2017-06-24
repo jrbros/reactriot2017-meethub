@@ -31,7 +31,7 @@ export function searchUsers(searchParameters) {
     return dispatch => {
         dispatch(waitUsers());
         return githubAPI.searchUsers(githubAPI.buildSearchQuery(searchParameters))
-            .then(users => dispatch(receiveUsers(users)))
+            .then(response => dispatch(receiveUsers(response.items)))
             .catch(error => dispatch(failToReceiveUsers(error)));
     };
 }
