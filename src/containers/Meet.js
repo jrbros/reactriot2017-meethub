@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
 
 import Meet from '../components/Meet';
+import LoaderHOC from '../components/Loader';
 
-export default connect(
+import loaderConnector from '../connectors/loader';
+
+export default loaderConnector(connect(
     ({users}) => ({users})
-)(Meet);
+)(LoaderHOC(Meet)));
