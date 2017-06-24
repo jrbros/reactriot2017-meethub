@@ -15,6 +15,7 @@ const Item = styled.li`
 export class Meet extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
     render() {
+      console.log(this.props.users);
         return (
             <List>
                 {

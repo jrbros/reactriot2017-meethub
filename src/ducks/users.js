@@ -30,7 +30,6 @@ export function fetchUsersInformations(users) {
         dispatch(waitUsers());
         return Promise.all(users.map(
             user => {
-                console.log("yo");
                 return Promise.all([githubAPI.getUser(user.login), githubAPI.getUserLanguages(user.login)])
                 .then(([user, userLanguages]) => ({...user, languages: userLanguages}))
             }

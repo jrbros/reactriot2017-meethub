@@ -8,25 +8,35 @@ const StyledCard = styled.div`
     flex-direction: column;
 `;
 
-const Card = ({avatar_url, login, html_url}) => (
+const Card = ({avatar_url, name, html_url, location, languages}) => (
   <StyledCard>
-      <img src={avatar_url} alt={login} width='180' height='180' />
+      <img src={avatar_url} alt={name} width='180' height='180' />
       <h2>
-          <a href={html_url}>{login}</a>
+          <a href={html_url}>{name}</a>
       </h2>
+      <p>{location}</p>
+      <ul>
+        {
+          languages.map((language, index) => (<li key={index}>{language}</li>))
+        }
+      </ul>
   </StyledCard>
 );
 
 Card.defaultProps = {
     img: '',
-    login: '',
-    html_url: ''
+    name: '',
+    html_url: '',
+    location: '',
+    languages: []
 };
 
 Card.propTypes = {
     img: PropTypes.string,
-    login: PropTypes.string,
+    name: PropTypes.string,
     html_url: PropTypes.string,
+    location: PropTypes.string,
+    languages: PropTypes.array
 };
 
 export default Card;
