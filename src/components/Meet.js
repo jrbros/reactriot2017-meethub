@@ -19,7 +19,6 @@ export class Meet extends React.PureComponent { // eslint-disable-line react/pre
     }
 
     render() {
-        console.log(this.props);
         const fakeFilter = {
             location: 'bordeaux',
             language: ['python']
@@ -30,6 +29,7 @@ export class Meet extends React.PureComponent { // eslint-disable-line react/pre
             return (
                 <div>
                     <div>FAKE WELCOME</div>
+                    <div>{this.props.location.empty === true ? 'You refused geoloc' : this.props.location.location}</div>
                     <button onClick={() => this.props.searchUsers(fakeFilter)}>FAKE ACTION</button>
                 </div>
             );

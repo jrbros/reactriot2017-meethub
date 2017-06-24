@@ -1,3 +1,5 @@
+import googleAPI from '../apis/google';
+
 const ACCEPT_GEO_LOCATION = 'ACCEPT_GEO_LOCATION';
 const REFUSE_GEO_LOCATION = 'REFUSE_GEO_LOCATION';
 const FAIL_GEO_LOCATION = 'FAIL_GEO_LOCATION';
@@ -26,7 +28,10 @@ export function askForGeoLocation() {
     return dispatch => {
         try {
             return navigator.geolocation.getCurrentPosition(
-                position => dispatch(acceptGeoLocation(position)),
+                coordinates => {
+                    googleAPI.getLocation(coordinates)
+                             .then(location => dispatch(acceptGeoLocation(location)))
+                },
                 () => dispatch(failGeoLocation())
             )
         } catch (e) {
@@ -37,7 +42,7 @@ export function askForGeoLocation() {
 
 
 const INITIAL_STATE = {
-    location: null,
+    location: [],
     empty: true,
     error: null
 };
@@ -45,10 +50,11 @@ const INITIAL_STATE = {
 const store = (state = INITIAL_STATE, action = null) => {
     switch (action.type) {
         case 'ACCEPT_GEO_LOCATION':
+            const location = action.payload.location;
             return {
                 error: null,
-                empty: false,
-                location: action.payload.location
+                location,
+                empty: location.length <= 0,
             };
         case 'REFUSE_GEO_LOCATION':
             return {
