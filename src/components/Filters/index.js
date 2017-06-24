@@ -7,7 +7,42 @@ import SelectPlaces from 'react-select-places'
 const StyledFilters= styled.div`
     /* Box model */
     display: flex;
-    flex-direction: column;
+    margin: 0 auto;
+    max-width: 680px;
+    width: 100%;
+    margin-top: -18px;
+
+    /* Visual */
+    border: 1px solid ${props => props.theme.grayLight};
+    border-radius: 3px;
+`;
+
+const Form = styled.form`
+    /* Box model */
+    display: flex;
+`;
+
+const StyledSelectPlaces = styled(SelectPlaces)`
+    width: 444px;
+
+    .Select-control {
+        border: none;
+        border-radius: 0;
+    }
+
+    .Select-placeholder, .Select--single > .Select-control .Select-value {
+        color: ${props => props.theme.grayLight};
+        font-size: .9375rem;
+    }
+
+    .Select-arrow-zone {
+        display: none;
+    }
+
+    .Select-menu-outer {
+        box-shadow: none;
+        width: 444px;
+    }
 `;
 
 const options = [
@@ -39,10 +74,12 @@ class Filters extends PureComponent {
     render() {
         return (
             <StyledFilters>
-                <form onSubmit={this.handleSubmit}>
-                    <SelectPlaces
+                <Form onSubmit={this.handleSubmit}>
+                    <StyledSelectPlaces
                       value={{placeId: this.props.geoLocation.placeId}}
                       onChange={this.handleChangeLocation}
+                      clearable={false}
+                      placeholder='Select city...'
                       autocompletionRequest={{
                           types: ['(cities)']
                         }}
@@ -53,10 +90,10 @@ class Filters extends PureComponent {
                       value={this.props.languages.selectedLanguages}
                       multi
                     />
-                <button disabled={this.props.geoLocation.empty && this.props.languages.empty}>
+                    <button disabled={this.props.geoLocation.empty && this.props.languages.empty}>
                         Search
                     </button>
-                </form>
+                </Form>
             </StyledFilters>
         );
     }

@@ -2,6 +2,9 @@
 
 import { configure } from '@storybook/react';
 import 'normalize.css/normalize.css';
+import 'react-select/dist/react-select.css'
+import 'react-virtualized/styles.css'
+import 'react-virtualized-select/styles.css'
 
 const req = require.context('./stories', true, /.js$/);
 

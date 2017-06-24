@@ -7,9 +7,9 @@ const StyledHeader = styled.header`
     /* Box model */
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     height: 125px;
+    padding-top: 1.188rem;
 
     /* Visual */
     background-image: linear-gradient(263deg, #00c9ff, #92fe9d);
