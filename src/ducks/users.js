@@ -89,12 +89,11 @@ const store = (state = INITIAL_STATE, action = null) => {
                 loadingMessage: 'Loading users data...'
             };
         case 'RECEIVE_USERS':
-            const users = [...state.users, ...action.payload.users];
             return {
                 ...state,
                 ...INITIAL_INDICATORS_STATE,
-                users,
-                empty: users.length <= 0,
+                users: action.payload.users,
+                empty: action.payload.users.length <= 0,
             };
         case 'FAIL_TO_SEARCH_USERS':
             return {

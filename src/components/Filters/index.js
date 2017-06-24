@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import VirtualizedSelect from 'react-virtualized-select'
 import SelectPlaces from 'react-select-places'
-import { parseLocation } from '../../apis/google';
 
 const StyledFilters= styled.div`
     /* Box model */
@@ -22,7 +21,6 @@ class Filters extends Component {
 
         this.state = {
             filter: {
-                location: '',
                 language: []
             }
         }
@@ -38,26 +36,26 @@ class Filters extends Component {
     }
 
     handleChangeLocation = value => {
-        this.setState({
-            filter: {
-              ...this.state.filter,
-              location: parseLocation([value])
-            }
-        });
+        this.props.updateGeoLocation(value);
     }
 
     handleSubmit = event => {
         event.preventDefault();
         const { filter } = this.state;
-        this.props.searchUsers(filter);
+        this.props.searchUsers({
+            ...filter,
+            location: this.props.geoLocation.location
+        });
     }
 
     render() {
         const { filter } = this.state;
+        console.log(this.props.geoLocation);
         return (
             <StyledFilters>
                 <form onSubmit={this.handleSubmit}>
                     <SelectPlaces
+                      value={{placeId: this.props.geoLocation.placeId}}
                       onChange={this.handleChangeLocation}
                       autocompletionRequest={{
                           types: ['(cities)']

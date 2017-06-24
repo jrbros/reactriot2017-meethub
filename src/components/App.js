@@ -9,7 +9,7 @@ class App extends Component {
     }
 
     render() {
-        const { empty, location } = this.props;
+        const { empty, location } = this.props.geoLocation;
         return (
             <div>
                 <Header />

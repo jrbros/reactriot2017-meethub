@@ -9,7 +9,7 @@ export function parseLocation(location) {
      * @returns {Array} The extracted content of the location.
      */
     try {
-        return location[0].address_components.map(({long_name}) => long_name);
+        return location.address_components.map(({long_name}) => long_name);
     } catch (e) {
         return [];
     }
@@ -27,7 +27,7 @@ export function getLocation(coordinates) {
         {
             method: 'GET'
         }
-    ).then(location => parseLocation(location.results));
+    );
 }
 
 export default {
