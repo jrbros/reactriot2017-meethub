@@ -31,7 +31,10 @@ export function fetchUsersInformations(users) {
         return Promise.all(users.map(
             user => {
                 return Promise.all([githubAPI.getUser(user.login), githubAPI.getUserLanguages(user.login)])
-                    .then(([user, userLanguages]) => ({...user, languages: userLanguages}))
+                    .then(([userInformation, userLanguages]) => ({
+                            ...userInformation,
+                            languages: [...new Set([...user.languages, ...userLanguages])]
+                        }))
             }
         ))
             .then((responses) => dispatch(receiveUsers(responses)))
@@ -44,8 +47,9 @@ export function searchUsers(searchParameters) {
         dispatch(waitUsers());
         return githubAPI.searchUsers(buildSearchQuery(searchParameters))
             .then(response => {
-                dispatch(receiveUsers(response.items.map(user => ({...user, languages: []}))))
-                return dispatch(fetchUsersInformations(response.items));
+                const users = response.items.map(user => ({...user, languages: searchParameters.language}));
+                dispatch(receiveUsers(users));
+                return dispatch(fetchUsersInformations(users));
             })
             .catch(error => dispatch(failToReceiveUsers(githubAPI.handleErrorMessage(error))));
     };

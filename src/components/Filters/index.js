@@ -46,8 +46,8 @@ const StyledSelectPlaces = styled(SelectPlaces)`
 `;
 
 const options = [
-    { label: 'Javascript', value: 'javascript' },
-    { label: 'Python', value: 'python' },
+    { label: 'JavaScript', value: 'JavaScript' },
+    { label: 'Python', value: 'Python' },
 ];
 
 class Filters extends PureComponent {
@@ -63,7 +63,6 @@ class Filters extends PureComponent {
     handleSubmit = event => {
         event.preventDefault();
         if (!(this.props.geoLocation.empty && this.props.languages.empty)) {
-            console.log(this.props.languages.selectedLanguages);
             return this.props.searchUsers({
                 language: this.props.languages.selectedLanguages,
                 location: this.props.geoLocation.empty ? [] : this.props.geoLocation.location[0]
