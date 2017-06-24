@@ -46,9 +46,8 @@ export function searchUsers(searchQuery) {
      * @param {String} searchQuery The query to pass in the url.
      * @returns {Promise} The promise giving the users search results.
      */
-    console.log(searchQuery);
     return fetch(
-        `${SEARCH_USERS_API}?q=${searchQuery}`,
+        `${SEARCH_USERS_API}?utf8=✓&q=${searchQuery}`.replace('C#', 'C%23').replace('C++', '%2B%2B'),
         MAIN_CONFIG
     );
 }
