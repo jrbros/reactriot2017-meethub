@@ -14,11 +14,17 @@ const Item = styled.li`
 
 export class Meet extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
+    componentDidMount() {
+        this.props.askForGeoLocation();
+    }
+
     render() {
+        console.log(this.props);
         const fakeFilter = {
             location: 'bordeaux',
             language: ['python']
         }
+        if (this.props.users.error !== null) return <div>FAKE ERROR... {this.props.users.error}</div>
         if (this.props.users.loading === true) return <div>FAKE LOADER...</div>
         if (this.props.users.empty === true) {
             return (
