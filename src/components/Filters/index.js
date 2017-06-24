@@ -28,6 +28,7 @@ class Filters extends PureComponent {
     handleSubmit = event => {
         event.preventDefault();
         if (!(this.props.geoLocation.empty && this.props.languages.empty)) {
+            console.log(this.props.geoLocation);
             return this.props.searchUsers({
                 language: this.props.languages.selectedLanguages,
                 location: this.props.geoLocation.empty ? [] : this.props.geoLocation.location[0]

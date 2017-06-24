@@ -76,6 +76,7 @@ export function getUserLanguages(userLogin) {
 }
 
 export function handleErrorMessage(error) {
+    console.error(error);
     if (!error || !error.response || ERROR_HANDLER[error.response.status] === undefined) return ERROR_HANDLER[null];
     return ERROR_HANDLER[error.response.status];
 }

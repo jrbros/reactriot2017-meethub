@@ -1,4 +1,5 @@
 import githubAPI, { buildSearchQuery } from '../apis/github';
+import User from '../types/user';
 
 const WAIT_USERS = 'WAIT_USERS';
 const RECEIVE_USERS = 'RECEIVE_USERS';
@@ -31,12 +32,11 @@ export function fetchUsersInformations(users) {
         return Promise.all(users.map(
             user => {
                 return Promise.all([githubAPI.getUser(user.login), githubAPI.getUserLanguages(user.login)])
-                    .then(([userInformation, userLanguages]) => ({
+                    .then(([userInformation, userLanguages]) => User.fromGithubOject({
                             ...userInformation,
-                            languages: [...new Set([...user.languages, ...userLanguages])]
-                        }))
-            }
-        ))
+                            languages: [...user.languages, ...userLanguages]
+                    }))
+            }))
             .then((responses) => dispatch(receiveUsers(responses)))
             .catch(error => dispatch(failToReceiveUsers(githubAPI.handleErrorMessage(error))));
     };
@@ -47,7 +47,9 @@ export function searchUsers(searchParameters) {
         dispatch(waitUsers());
         return githubAPI.searchUsers(buildSearchQuery(searchParameters))
             .then(response => {
-                const users = response.items.map(user => ({...user, languages: searchParameters.language}));
+                const users = response.items.map(
+                    user => User.fromGithubOject({...user, languages: searchParameters.language})
+                );
                 dispatch(receiveUsers(users));
                 return dispatch(fetchUsersInformations(users));
             })

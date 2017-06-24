@@ -83,12 +83,12 @@ const Item = styled.li`
     }
 `;
 
-const Card = ({avatar_url, name, html_url, login, location, languages}) => (
+const Card = ({avatarUrl, name, htmlUrl, login, location, languages}) => (
   <StyledCard>
-      <img src={avatar_url} alt={name} width='230' height='230' />
+      <img src={avatarUrl} alt={name} width='230' height='230' />
       <Content>
           <Title>
-              <Link href={html_url}>{name ? name : login}</Link>
+              <Link href={htmlUrl}>{name}</Link>
           </Title>
           <Copy>{location}</Copy>
           <List>
@@ -101,19 +101,19 @@ const Card = ({avatar_url, name, html_url, login, location, languages}) => (
 );
 
 Card.defaultProps = {
-    img: '',
+    avatarUrl: '',
     name: '',
     login: '',
-    html_url: '',
+    htmlUrl: '',
     location: '',
     languages: []
 };
 
 Card.propTypes = {
-    img: PropTypes.string,
+    avatarUrl: PropTypes.string,
     name: PropTypes.string,
     login: PropTypes.string,
-    html_url: PropTypes.string,
+    htmlUrl: PropTypes.string,
     location: PropTypes.string,
     languages: PropTypes.array
 };
