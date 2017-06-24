@@ -19,36 +19,37 @@ class Filters extends Component {
         super(props);
 
         this.state = {
-            filters: {
+            filter: {
                 location: '',
-                languages: ''
+                language: ''
             }
         }
     }
 
     handleChangeLanguages = value => {
         this.setState({
-            filters: {
+            filter: {
               ...this.state.filters,
-              languages: value
+              language: value.map(({value}) => value)
             }
         });
     }
 
     handleSubmit = event => {
         event.preventDefault();
-        console.log(this.state.filters);
+        const { filter } = this.state;
+        this.props.searchUsers(filter);
     }
 
     render() {
-        const { filters } = this.state;
+        const { filter } = this.state;
         return (
             <StyledFilters>
                 <form onSubmit={this.handleSubmit}>
                     <VirtualizedSelect
                       options={options}
                       onChange={this.handleChangeLanguages}
-                      value={filters.languages}
+                      value={filter.language}
                       multi
                     />
                     <button>Search</button>
