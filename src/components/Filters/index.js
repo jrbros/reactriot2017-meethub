@@ -20,18 +20,13 @@ class Filters extends Component {
         super(props);
 
         this.state = {
-            filter: {
-                language: []
-            }
+            language: []
         }
     }
 
     handleChangeLanguage = value => {
         this.setState({
-            filter: {
-              ...this.state.filter,
-              language: value.map(({value}) => value)
-            }
+            language: value.map(({value}) => value)
         });
     }
 
@@ -41,15 +36,15 @@ class Filters extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        const { filter } = this.state;
-        this.props.searchUsers({
-            ...filter,
-            location: this.props.geoLocation.empty ? [] : this.props.geoLocation.location[0]
-        });
+        if (!(this.props.geoLocation.empty && this.state.language.length === 0)) {
+            return this.props.searchUsers({
+                language: this.state.language,
+                location: this.props.geoLocation.empty ? [] : this.props.geoLocation.location[0]
+            });
+        }
     }
 
     render() {
-        const { filter } = this.state;
         return (
             <StyledFilters>
                 <form onSubmit={this.handleSubmit}>
@@ -63,10 +58,12 @@ class Filters extends Component {
                     <VirtualizedSelect
                       options={options}
                       onChange={this.handleChangeLanguage}
-                      value={filter.language}
+                      value={this.state.language}
                       multi
                     />
-                    <button>Search</button>
+                    <button disabled={this.props.geoLocation.empty && this.state.language.length === 0}>
+                        Search
+                    </button>
                 </form>
             </StyledFilters>
         );
