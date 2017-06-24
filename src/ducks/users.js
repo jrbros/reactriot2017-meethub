@@ -44,7 +44,7 @@ export function searchUsers(searchParameters) {
         dispatch(waitUsers());
         return githubAPI.searchUsers(buildSearchQuery(searchParameters))
             .then(response => {
-                dispatch(receiveUsers(response.items))
+                dispatch(receiveUsers(response.items.map(user => ({...user, languages: []}))))
                 return dispatch(fetchUsersInformations(response.items));
             })
             .catch(error => dispatch(failToReceiveUsers(githubAPI.handleErrorMessage(error))));

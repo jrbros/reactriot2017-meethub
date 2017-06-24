@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import VirtualizedSelect from 'react-virtualized-select'
@@ -15,19 +15,10 @@ const options = [
     { label: 'Python', value: 'python' },
 ];
 
-class Filters extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            language: []
-        }
-    }
+class Filters extends PureComponent {
 
     handleChangeLanguage = value => {
-        this.setState({
-            language: value.map(({value}) => value)
-        });
+        this.props.updateLanguages(value.map(v => v.value));
     }
 
     handleChangeLocation = value => {
@@ -36,9 +27,10 @@ class Filters extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        if (!(this.props.geoLocation.empty && this.state.language.length === 0)) {
+        if (!(this.props.geoLocation.empty && this.props.languages.empty)) {
+            console.log(this.props.languages.selectedLanguages);
             return this.props.searchUsers({
-                language: this.state.language,
+                language: this.props.languages.selectedLanguages,
                 location: this.props.geoLocation.empty ? [] : this.props.geoLocation.location[0]
             });
         }
@@ -58,10 +50,10 @@ class Filters extends Component {
                     <VirtualizedSelect
                       options={options}
                       onChange={this.handleChangeLanguage}
-                      value={this.state.language}
+                      value={this.props.languages.selectedLanguages}
                       multi
                     />
-                    <button disabled={this.props.geoLocation.empty && this.state.language.length === 0}>
+                <button disabled={this.props.geoLocation.empty && this.props.languages.empty}>
                         Search
                     </button>
                 </form>

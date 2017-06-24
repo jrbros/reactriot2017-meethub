@@ -7,7 +7,7 @@ import loaderConnector from '../connectors/loader';
 import errorConnector from '../connectors/error';
 
 const MeetContainer = connect(
-    ({users}) => ({users: users.usersInformations})
+    ({users, languages}) => ({users: users.usersInformations, languages: languages.selectedLanguages})
 )(Meet);
 
 const container = loaderConnector(LoaderHOC(

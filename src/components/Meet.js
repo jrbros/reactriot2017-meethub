@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 // import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import Card from './Card';
@@ -12,16 +12,20 @@ const Item = styled.li`
     list-style-type: none;
 `;
 
-export class Meet extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class Meet extends PureComponent {
 
     render() {
-      console.log(this.props.users);
         return (
             <List>
                 {
                     this.props.users.map((user, index) => (
                         <Item key={index}>
-                            <Card {...user} />
+                            <Card
+                                {...user}
+                                languages={
+                                    user.languages.filter(lang => this.props.languages.includes(lang.toLowerCase()))
+                                }
+                                />
                         </Item>
                     ))
                 }
