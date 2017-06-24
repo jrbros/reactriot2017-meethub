@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import styled, { withTheme } from 'styled-components';
 
-import languages from '../../constants/languages';
+import LANGUAGES from '../../constants/languages';
 
 const StyledSelectLanguage = styled.div`
     /* Box model */
@@ -74,7 +74,7 @@ class SelectLanguage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            languages: languages.map(language => ({
+            languages: LANGUAGES.map(language => ({
                 name: language,
                 active: false
             })),

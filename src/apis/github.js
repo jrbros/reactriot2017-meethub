@@ -46,6 +46,7 @@ export function searchUsers(searchQuery) {
      * @param {String} searchQuery The query to pass in the url.
      * @returns {Promise} The promise giving the users search results.
      */
+    console.log(searchQuery);
     return fetch(
         `${SEARCH_USERS_API}?q=${searchQuery}`,
         MAIN_CONFIG

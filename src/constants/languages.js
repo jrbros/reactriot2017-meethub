@@ -1,4 +1,4 @@
-const languages = [
+const LANGUAGES = [
   "ActionScript",
   "C",
   "C#",
@@ -26,4 +26,5 @@ const languages = [
   "Vim script"
 ];
 
-export default languages;
+
+export default LANGUAGES;
