@@ -7,6 +7,7 @@ const StyledCard = styled.div`
     display: flex;
     flex-direction: column;
     max-width: 230px;
+    overflow: hidden;
 
     /* Visual */
     background-color: ${props => props.theme.grayLight};
@@ -28,6 +29,7 @@ const Title = styled.h3`
     /* Typography */
     font-size: 1.4rem;
     font-weight: 600;
+    text-align: center;
     line-height: 1;
 `;
 
@@ -65,9 +67,11 @@ const List = styled.ul `
 
 const Item = styled.li`
     /* Box model */
+    display: flex;
+    align-items: center;
     margin-bottom: .6rem;
-    padding: .2rem .8rem;
-    height: 20px;
+    padding: 0 .8rem;
+    height: 22px;
 
     /* Visual */
     color: #ffffff;
@@ -83,12 +87,12 @@ const Item = styled.li`
     }
 `;
 
-const Card = ({avatar_url, name, html_url, login, location, languages}) => (
+const Card = ({avatarUrl, name, htmlUrl, login, location, languages}) => (
   <StyledCard>
-      <img src={avatar_url} alt={name} width='230' height='230' />
+      <img src={avatarUrl} alt={name} width='230' height='230' />
       <Content>
           <Title>
-              <Link href={html_url}>{name ? name : login}</Link>
+              <Link href={htmlUrl} target="_blank">{name}</Link>
           </Title>
           <Copy>{location}</Copy>
           <List>
@@ -101,19 +105,19 @@ const Card = ({avatar_url, name, html_url, login, location, languages}) => (
 );
 
 Card.defaultProps = {
-    img: '',
+    avatarUrl: '',
     name: '',
     login: '',
-    html_url: '',
+    htmlUrl: '',
     location: '',
     languages: []
 };
 
 Card.propTypes = {
-    img: PropTypes.string,
+    avatarUrl: PropTypes.string,
     name: PropTypes.string,
     login: PropTypes.string,
-    html_url: PropTypes.string,
+    htmlUrl: PropTypes.string,
     location: PropTypes.string,
     languages: PropTypes.array
 };

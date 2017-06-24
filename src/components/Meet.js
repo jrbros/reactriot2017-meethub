@@ -16,13 +16,24 @@ const Item = styled.li`
     margin: 1rem .6rem;
 `;
 
+const Button = styled.button`
+`;
+
 export class Meet extends PureComponent {
+
+    handleIncrementPage = event => {
+        event.preventDefault();
+        return this.props.searchUsers({
+            language: this.props.languages.selectedLanguages,
+            location: this.props.geoLocation.empty ? [] : this.props.geoLocation.location[0],
+        }, this.props.users.page + 1);
+    }
 
     render() {
         return (
             <List>
                 {
-                    this.props.users.map((user, index) => (
+                    this.props.users.usersInformations.map((user, index) => (
                         <Item key={index}>
                             <Card
                                 {...user}
@@ -30,6 +41,9 @@ export class Meet extends PureComponent {
                                 />
                         </Item>
                     ))
+                }
+                {
+                    this.props.users.empty ? null : <Button onClick={this.handleIncrementPage}>+</Button>
                 }
             </List>
         );

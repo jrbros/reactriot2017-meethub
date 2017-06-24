@@ -19,10 +19,11 @@ const ERROR_HANDLER = {
     null: 'An unhandled error occured while calling github API...'
 };
 
-export function buildSearchQuery(searchParameters) {
+export function buildSearchQuery(searchParameters, page=1) {
     /**
     * Build a github search query from a parameter object.
     * @param {Object} searchParameters The parameter object used to search.
+    * @param {Integer} page The page used to realize the query.
     * @returns {String} The search query ready to use in the http call.
     */
     const isArray = parameter => Array.isArray(searchParameters[parameter]);
@@ -36,7 +37,7 @@ export function buildSearchQuery(searchParameters) {
                formatParameter(parameter) :
                formatMultiParameter(parameter)
           ))
-          .join('+');
+          .join('+') + `&page=${page}`;
 }
 
 export function searchUsers(searchQuery) {
@@ -76,6 +77,7 @@ export function getUserLanguages(userLogin) {
 }
 
 export function handleErrorMessage(error) {
+    console.error(error);
     if (!error || !error.response || ERROR_HANDLER[error.response.status] === undefined) return ERROR_HANDLER[null];
     return ERROR_HANDLER[error.response.status];
 }

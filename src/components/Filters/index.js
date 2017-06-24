@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import VirtualizedSelect from 'react-virtualized-select'
 import SelectPlaces from 'react-select-places'
+import { lighten } from 'polished'
 
 const StyledFilters= styled.div`
     /* Box model */
@@ -20,6 +21,22 @@ const StyledFilters= styled.div`
 const Form = styled.form`
     /* Box model */
     display: flex;
+`;
+
+const Button = styled.button`
+    /* Box model */
+    padding: 0 1.2rem;
+
+    /* Visual */
+    color: #ffffff;
+    background-color: #000000;
+    text-transform: uppercase;
+    border: 0;
+    border-radius: 0 3px 3px 0;
+
+    /* Typography */
+    font-size: .8rem;
+    font-weight: 600;
 `;
 
 const StyledSelectPlaces = styled(SelectPlaces)`
@@ -41,7 +58,31 @@ const StyledSelectPlaces = styled(SelectPlaces)`
 
     .Select-menu-outer {
         box-shadow: none;
-        width: 444px;
+        width: 680px;
+        margin-top: 0;
+        margin-left: -1px;
+        border: 1px solid ${props => props.theme.grayLight};
+    }
+
+    .Select-option {
+        color: ${props => props.theme.gray};
+        font-size: .9375rem;
+        padding: .4rem .8rem;
+    }
+
+    &.is-focused:not(.is-open) > .Select-control {
+        border-color: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    &.is-searchable.is-open > .Select-control {
+        border-bottom: 2px solid #000000;
+    }
+
+    .Select-option.is-focused {
+        color: ${props => props.theme.gray};
+        background-color: ${lighten(0.4, '#00c9ff')};
     }
 `;
 
@@ -51,6 +92,27 @@ const options = [
 ];
 
 class Filters extends PureComponent {
+
+    componentWillMount() {
+        this.canBeSubmitted = true;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.canBeSubmitted = this._checkBeforeSubmit(nextProps);
+    }
+
+    _checkBeforeSubmit(nextProps) {
+        const isNotEmpty = !(nextProps.geoLocation.empty && nextProps.languages.empty);
+        const locationIsNew = (
+            JSON.stringify(this.props.geoLocation.location) !==
+            JSON.stringify(nextProps.geoLocation.location)
+        );
+        const languagesAreNew = (
+            JSON.stringify(this.props.languages.selectedLanguages) !==
+            JSON.stringify(nextProps.languages.selectedLanguages)
+        );
+        return isNotEmpty && (locationIsNew || languagesAreNew);
+    }
 
     handleChangeLanguage = value => {
         this.props.updateLanguages(value.map(v => v.value));
@@ -62,7 +124,8 @@ class Filters extends PureComponent {
 
     handleSubmit = event => {
         event.preventDefault();
-        if (!(this.props.geoLocation.empty && this.props.languages.empty)) {
+        if (this.canBeSubmitted) {
+            this.canBeSubmitted = false;
             return this.props.searchUsers({
                 language: this.props.languages.selectedLanguages,
                 location: this.props.geoLocation.empty ? [] : this.props.geoLocation.location[0]
@@ -89,9 +152,9 @@ class Filters extends PureComponent {
                       value={this.props.languages.selectedLanguages}
                       multi
                     />
-                    <button disabled={this.props.geoLocation.empty && this.props.languages.empty}>
+                    <Button disabled={this.props.geoLocation.empty && this.props.languages.empty}>
                         Search
-                    </button>
+                    </Button>
                 </Form>
             </StyledFilters>
         );
