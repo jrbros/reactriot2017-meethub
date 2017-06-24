@@ -29,7 +29,8 @@ class Filters extends Component {
     handleChangeLanguages = value => {
         this.setState({
             filters: {
-              ...this.state.filters, languages: value
+              ...this.state.filters,
+              languages: value
             }
         });
     }
@@ -48,6 +49,7 @@ class Filters extends Component {
                       options={options}
                       onChange={this.handleChangeLanguages}
                       value={filters.languages}
+                      multi
                     />
                     <button>Search</button>
                 </form>
