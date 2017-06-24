@@ -1,9 +1,5 @@
 import React from 'react';
 // import { PropTypes } from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-
-import { searchUsers } from '../Filter/ducks/users';
 
 export class Meet extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -38,7 +34,4 @@ Meet.defaultProps = {
 Meet.propTypes = {
 };
 
-export default connect(
-    ({users}) => ({users}),
-    dispatch => bindActionCreators({searchUsers}, dispatch)
-)(Meet);
+export default Meet;
