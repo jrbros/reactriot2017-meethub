@@ -28,6 +28,7 @@ const Title = styled.h3`
     /* Typography */
     font-size: 1.4rem;
     font-weight: 600;
+    text-align: center;
     line-height: 1;
 `;
 
