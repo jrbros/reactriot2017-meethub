@@ -44,7 +44,7 @@ class Filters extends Component {
         const { filter } = this.state;
         this.props.searchUsers({
             ...filter,
-            location: this.props.geoLocation.location
+            location: this.props.geoLocation.empty ? [] : this.props.geoLocation.location[0]
         });
     }
 
