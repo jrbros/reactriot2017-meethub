@@ -10,7 +10,7 @@ const StyledCard = styled.div`
     overflow: hidden;
 
     /* Visual */
-    background-color: ${props => props.theme.grayLight};
+    background-color: #ffffff;
     border-radius: 3px;
 `;
 

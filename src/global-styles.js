@@ -10,6 +10,7 @@ injectGlobal`
         font-family: 'Source Sans Pro', Helvetica, sans-serif;
         -webkit-font-smoothing: antialiased;
         line-height: 1.5;
+        background-color: #F5F5F5;
     }
 
     *, *:before, *:after {
