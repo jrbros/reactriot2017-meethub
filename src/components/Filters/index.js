@@ -50,7 +50,6 @@ class Filters extends Component {
 
     render() {
         const { filter } = this.state;
-        console.log(this.props.geoLocation);
         return (
             <StyledFilters>
                 <form onSubmit={this.handleSubmit}>
