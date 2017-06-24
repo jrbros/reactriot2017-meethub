@@ -1,5 +1,16 @@
 import React from 'react';
 // import { PropTypes } from 'prop-types';
+import styled from 'styled-components';
+import Card from './Card';
+
+const List = styled.ul`
+    display: flex;
+    flex-wrap: wrap;
+`;
+
+const Item = styled.li`
+    list-style-type: none;
+`;
 
 export class Meet extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -26,9 +37,15 @@ export class Meet extends React.PureComponent { // eslint-disable-line react/pre
         return (
             <div>
                 FAKE LIST
-                <div style={{display: 'flex', flexDirection: 'column'}}>
-                    {this.props.users.users.map(user => <span>{JSON.stringify(user)}</span>)}
-                </div>
+                <List>
+                    {
+                        this.props.users.users.map(user => (
+                            <Item key={user.login}>
+                                <Card {...user} />
+                            </Item>
+                        ))
+                    }
+                </List>
             </div>
         );
     }
