@@ -20,7 +20,7 @@ export class Meet extends React.PureComponent { // eslint-disable-line react/pre
 
     render() {
         const fakeFilter = {
-            location: this.props.location.empty === true ? [] : this.props.location.location ,
+            location: this.props.location.empty === true ? [] : this.props.location.location[0] ,
             language: ['python']
         }
         if (this.props.users.error !== null) return <div>FAKE ERROR... {this.props.users.error}</div>
