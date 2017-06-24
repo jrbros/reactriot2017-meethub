@@ -31,6 +31,5 @@ export function getLocation(coordinates) {
 }
 
 export default {
-    getLocation,
-    parseLocation
+    getLocation
 }

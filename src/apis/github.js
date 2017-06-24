@@ -1,6 +1,15 @@
 import fetch from '../lib/fetch';
 
-const SEARCH_API = 'https://api.github.com/search/users';
+const API_TOKEN = '9589199d5bc89df0ed60621b0f43107f8e1be333'
+const SEARCH_USERS_API = 'https://api.github.com/search/users';
+const USERS_API = 'https://api.github.com/users';
+
+const MAIN_CONFIG = {
+    method: 'GET',
+    headers: {
+        'Authorization': `token ${API_TOKEN}`
+    }
+};
 
 const ERROR_HANDLER = {
     '400': 'Something is going wrong with the github API. Please try again later...',
@@ -8,7 +17,7 @@ const ERROR_HANDLER = {
     '403': 'Ups! It\'s seems you can\'t query github API...',
     '401': 'Ups! It\'s seems your github credentials are wrong...',
     null: 'An unhandled error occured while calling github API...'
-}
+};
 
 export function buildSearchQuery(searchParameters) {
     /**
@@ -37,20 +46,44 @@ export function searchUsers(searchQuery) {
      * @returns {Promise} The promise giving the users search results.
      */
     return fetch(
-        `${SEARCH_API}?q=${searchQuery}`,
-        {
-            method: 'GET'
-        }
+        `${SEARCH_USERS_API}?q=${searchQuery}`,
+        MAIN_CONFIG
     );
 }
 
+export function getUser(userLogin) {
+    /**
+     * Call the github users api by passing a user login.
+     * @param {String} userLogin The github user login to get.
+     * @returns {Promise} The promise giving the users search results.
+     */
+    return fetch(
+        `${USERS_API}/${userLogin}`,
+        MAIN_CONFIG
+    );
+}
+
+export function getUserLanguages(userLogin) {
+    /**
+     * Call the github users api by passing a user login.
+     * @param {String} userLogin The github user login to get.
+     * @returns {Promise} The promise giving the users search results.
+     */
+    return fetch(
+        `${USERS_API}/${userLogin}/repos`,
+        MAIN_CONFIG
+    ).then(repos => [...new Set(repos.filter(({language}) => Boolean(language)).map(({language}) => language))]);
+}
+
 export function handleErrorMessage(error) {
+    console.log(error);
     if (!error || !error.response || ERROR_HANDLER[error.response.status] === undefined) return ERROR_HANDLER[null];
     return ERROR_HANDLER[error.response.status];
 }
 
 export default {
     searchUsers,
-    buildSearchQuery,
+    getUser,
+    getUserLanguages,
     handleErrorMessage
 }

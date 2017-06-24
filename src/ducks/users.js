@@ -1,11 +1,9 @@
-import githubAPI from '../apis/github';
+import githubAPI, { buildSearchQuery } from '../apis/github';
 
 const WAIT_USERS = 'WAIT_USERS';
 const RECEIVE_USERS = 'RECEIVE_USERS';
 const FAIL_TO_SEARCH_USERS = 'FAIL_TO_SEARCH_USERS';
-const WAIT_USER_INFORMATIONS = 'WAIT_USER_INFORMATIONS';
-const RECEIVE_USER_INFORMATIONS = 'RECEIVE_USER_INFORMATIONS';
-const FAIL_TO_FETCH_USER_INFORMATIONS = 'FAIL_TO_FETCH_USER_INFORMATIONS';
+
 
 function waitUsers() {
     return {
@@ -27,44 +25,32 @@ function failToReceiveUsers(error) {
     };
 }
 
+export function fetchUsersInformations(users) {
+    return dispatch => {
+        dispatch(waitUsers());
+        return Promise.all(users.map(
+            user => {
+                console.log("yo");
+                return Promise.all([githubAPI.getUser(user.login), githubAPI.getUserLanguages(user.login)])
+                .then(([user, userLanguages]) => ({...user, languages: userLanguages}))
+            }
+        ))
+            .then((responses) => dispatch(receiveUsers(responses)))
+            .catch(error => dispatch(githubAPI.handleErrorMessage(error)));
+    };
+}
+
 export function searchUsers(searchParameters) {
     return dispatch => {
         dispatch(waitUsers());
-        return githubAPI.searchUsers(githubAPI.buildSearchQuery(searchParameters))
-            .then(response => dispatch(receiveUsers(response.items)))
+        return githubAPI.searchUsers(buildSearchQuery(searchParameters))
+            .then(response => {
+                dispatch(receiveUsers(response.items))
+                return dispatch(fetchUsersInformations(response.items));
+            })
             .catch(error => dispatch(failToReceiveUsers(githubAPI.handleErrorMessage(error))));
     };
 }
-
-function waitUserInformations() {
-    return {
-        type: WAIT_USER_INFORMATIONS
-    };
-}
-
-function receiveUserInformations(user) {
-    return {
-        type: RECEIVE_USER_INFORMATIONS,
-        payload: {user}
-    };
-}
-
-function failToReceiveUserInformations(error) {
-    return {
-        type: FAIL_TO_FETCH_USER_INFORMATIONS,
-        payload: {error}
-    };
-}
-
-export function fetchUserInformations(userLogin) {
-    return dispatch => {
-        dispatch(waitUserInformations());
-        return githubAPI.getUser(userLogin)
-            .then(user => dispatch(receiveUserInformations(user)))
-            .catch(error => dispatch(failToReceiveUserInformations(error)));
-    };
-}
-
 
 const INITIAL_INDICATORS_STATE = {
     loading: false,
