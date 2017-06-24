@@ -17,10 +17,10 @@ function refuseGeoLocation() {
     };
 }
 
-function failGeoLocation() {
+function failGeoLocation(error) {
     return {
         type: FAIL_GEO_LOCATION,
-        payload: {error: 'We failed to active geo location on your device.'}
+        payload: {error}
     };
 }
 
@@ -32,7 +32,7 @@ export function askForGeoLocation() {
                     googleAPI.getLocation(coordinates)
                              .then(location => dispatch(updateGeoLocation(location.results[0])))
                 },
-                () => dispatch(failGeoLocation())
+                error => dispatch(failGeoLocation(googleAPI.handleErrorMessage(error)))
             )
         } catch (e) {
             return dispatch(refuseGeoLocation())

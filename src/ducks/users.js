@@ -31,11 +31,11 @@ export function fetchUsersInformations(users) {
         return Promise.all(users.map(
             user => {
                 return Promise.all([githubAPI.getUser(user.login), githubAPI.getUserLanguages(user.login)])
-                .then(([user, userLanguages]) => ({...user, languages: userLanguages}))
+                    .then(([user, userLanguages]) => ({...user, languages: userLanguages}))
             }
         ))
             .then((responses) => dispatch(receiveUsers(responses)))
-            .catch(error => dispatch(githubAPI.handleErrorMessage(error)));
+            .catch(error => dispatch(failToReceiveUsers(githubAPI.handleErrorMessage(error))));
     };
 }
 
