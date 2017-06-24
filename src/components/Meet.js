@@ -15,12 +15,10 @@ const Item = styled.li`
 export class Meet extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
     render() {
-        console.log(this.props.users);
-        if (this.props.users.error !== null) return <div>FAKE ERROR... {this.props.users.error}</div>
         return (
             <List>
                 {
-                    this.props.users.users.map((user, index) => (
+                    this.props.users.map((user, index) => (
                         <Item key={index}>
                             <Card {...user} />
                         </Item>

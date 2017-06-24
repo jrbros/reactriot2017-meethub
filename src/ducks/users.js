@@ -60,7 +60,7 @@ const INITIAL_INDICATORS_STATE = {
 
 const INITIAL_STATE = {
     ...INITIAL_INDICATORS_STATE,
-    users: [],
+    usersInformations: [],
     empty: true,
 };
 
@@ -78,7 +78,7 @@ const store = (state = INITIAL_STATE, action = null) => {
             return {
                 ...state,
                 ...INITIAL_INDICATORS_STATE,
-                users: action.payload.users,
+                usersInformations: action.payload.users,
                 empty: action.payload.users.length <= 0,
             };
         case 'FAIL_TO_SEARCH_USERS':
