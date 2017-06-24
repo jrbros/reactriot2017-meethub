@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 
 import Filters from '../components/Filters';
 import { searchUsers } from '../ducks/users';
+import { updateGeoLocation } from '../ducks/geoLocation';
 
 export default connect(
-    null,
-    dispatch => bindActionCreators({searchUsers}, dispatch)
+    ({geoLocation}) => ({geoLocation}),
+    dispatch => bindActionCreators({searchUsers, updateGeoLocation}, dispatch)
 )(Filters);

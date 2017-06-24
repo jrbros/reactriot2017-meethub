@@ -3,7 +3,7 @@ import { routerReducer } from 'react-router-redux';
 import thunk from 'redux-thunk';
 
 import users from './ducks/users';
-import geoLocation from './ducks/location';
+import geoLocation from './ducks/geoLocation';
 
 const store = createStore(
     combineReducers({
