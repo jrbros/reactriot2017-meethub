@@ -1,16 +1,8 @@
 import googleAPI, { parseLocation } from '../apis/google';
 
-// const ACCEPT_GEO_LOCATION = 'ACCEPT_GEO_LOCATION';
 const UPDATE_GEO_LOCATION = 'UPDATE_GEO_LOCATION';
 const REFUSE_GEO_LOCATION = 'REFUSE_GEO_LOCATION';
 const FAIL_GEO_LOCATION = 'FAIL_GEO_LOCATION';
-
-// function acceptGeoLocation(location) {
-//     return {
-//         type: ACCEPT_GEO_LOCATION,
-//         payload: {location}
-//     };
-// }
 
 export function updateGeoLocation(location) {
     return {
