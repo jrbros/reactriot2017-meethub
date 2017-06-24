@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled, { withTheme } from 'styled-components';
+import pluralize from 'pluralize';
 
 import LANGUAGES from '../../constants/languages';
 
@@ -8,7 +9,7 @@ const StyledSelectLanguage = styled.div`
     /* Box model */
     display: flex;
     height: 100%;
-    width: 144px;
+    width: 156px;
     justify-content: center;
     align-items: center;
     padding: 0 1.125rem;
@@ -24,7 +25,7 @@ const StyledSelectLanguage = styled.div`
 `;
 
 const Toggle = styled.div`
-
+    font-size: 1rem;
 `;
 
 const Options = styled.ul`
@@ -84,6 +85,24 @@ class SelectLanguage extends Component {
             })),
             open: false
         }
+        this.handleClickOutside = this.handleClickOutside.bind(this);
+    }
+
+    componentDidMount() {
+        document.addEventListener('click', this.handleClickOutside, false);
+    }
+
+   componentWillUnmount() {
+        document.removeEventListener('click', this.handleClickOutside, false);
+    }
+
+   handleClickOutside(event) {
+        const domNode = this.node; // eslint-disable-line react/no-find-dom-node
+        if (this.state.open && (!domNode || !domNode.contains(event.target))) {
+            this.setState({
+                open: false
+            });
+        }
     }
 
     handleToggle = event => {
@@ -108,37 +127,41 @@ class SelectLanguage extends Component {
         const { theme: { gray }} = this.props;
         const activeLength = languages.filter(language => language.active).length;
         return (
-            <StyledSelectLanguage style={{
-                    borderBottom: open ? '2px solid #000' : '2px solid transparent'
-                }}>
-                <Toggle onClick={this.handleToggle}>
-                    { activeLength ? `${activeLength} languages` : 'Filter by language' }
-                </Toggle>
-                {
-                    open ? (
-                      <Options>
-                          {
-                              languages.map(({name, active}, index) => (
-                                  <Option key={index} style={{
-                                    backgroundColor: active ? gray : 'transparent',
-                                    color: active ? '#fff' : gray
-                                  }}>
-                                      <Label htmlFor={name} />
-                                      <Checkbox
-                                        type='checkbox'
-                                        id={name}
-                                        value={name}
-                                        checked={active}
-                                        onChange={this.handleToggleLanguage}
-                                      />
-                                      {name}
-                                  </Option>
-                              ))
-                          }
-                      </Options>
-                    ) : null
-                }
-            </StyledSelectLanguage>
+            <div ref={node => (this.node = node)} >
+                <StyledSelectLanguage
+                    style={{
+                        borderBottom: open ? '2px solid #000' : '2px solid transparent'
+                    }}
+                >
+                    <Toggle onClick={this.handleToggle}>
+                        { activeLength ? `${activeLength} ${pluralize('language', activeLength)}` : 'Filter by language' }
+                    </Toggle>
+                    {
+                        open ? (
+                          <Options>
+                              {
+                                  languages.map(({name, active}, index) => (
+                                      <Option key={index} style={{
+                                        backgroundColor: active ? gray : 'transparent',
+                                        color: active ? '#fff' : gray
+                                      }}>
+                                          <Label htmlFor={name} />
+                                          <Checkbox
+                                            type='checkbox'
+                                            id={name}
+                                            value={name}
+                                            checked={active}
+                                            onChange={this.handleToggleLanguage}
+                                          />
+                                          {name}
+                                      </Option>
+                                  ))
+                              }
+                          </Options>
+                        ) : null
+                    }
+                </StyledSelectLanguage>
+            </div>
         );
     }
 }

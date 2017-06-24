@@ -47,7 +47,7 @@ const Button = styled.button`
 `;
 
 const StyledSelectPlaces = styled(SelectPlaces)`
-    width: 444px;
+    width: 432px;
     height: 100%;
 
     .Select-control {
@@ -62,6 +62,10 @@ const StyledSelectPlaces = styled(SelectPlaces)`
 
     .Select-placeholder {
         padding: .4rem .8rem;
+    }
+
+    .Select-noresults {
+        font-size: 1rem;
     }
 
     .Select-value {
