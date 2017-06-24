@@ -8,6 +8,7 @@ export class Meet extends React.PureComponent { // eslint-disable-line react/pre
             location: 'bordeaux',
             language: ['python']
         }
+        if (this.props.users.error !== null) return <div>FAKE ERROR... {this.props.users.error}</div>
         if (this.props.users.loading === true) return <div>FAKE LOADER...</div>
         if (this.props.users.empty === true) {
             return (
