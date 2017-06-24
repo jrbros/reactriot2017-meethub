@@ -1,19 +1,12 @@
 import React from 'react';
-import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import { Router, IndexRoute, Route, browserHistory } from 'react-router';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
 
-import App from './containers/App';
-import Meet from './containers/Meet';
-import filterReducer from './containers/Filter/ducks/users';
+import App from './components/App';
+import Meet from './containers/Meet.js';
 
-const store = createStore(
-    combineReducers({
-        filter: filterReducer,
-        routing: routerReducer
-    })
-);
+import store from './store';
 
 const history = syncHistoryWithStore(browserHistory, store);
 
