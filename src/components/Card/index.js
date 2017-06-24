@@ -7,6 +7,7 @@ const StyledCard = styled.div`
     display: flex;
     flex-direction: column;
     max-width: 230px;
+    overflow: hidden;
 
     /* Visual */
     background-color: ${props => props.theme.grayLight};
@@ -66,9 +67,11 @@ const List = styled.ul `
 
 const Item = styled.li`
     /* Box model */
+    display: flex;
+    align-items: center;
     margin-bottom: .6rem;
-    padding: .2rem .8rem;
-    height: 20px;
+    padding: 0 .8rem;
+    height: 22px;
 
     /* Visual */
     color: #ffffff;
