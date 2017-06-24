@@ -40,7 +40,7 @@ export class Meet extends React.PureComponent { // eslint-disable-line react/pre
                 <List>
                     {
                         this.props.users.users.map(user => (
-                            <Item key={user.login}>
+                            <Item key={user.id}>
                                 <Card {...user} />
                             </Item>
                         ))
