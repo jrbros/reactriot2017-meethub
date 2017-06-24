@@ -23,10 +23,10 @@ export class Meet extends PureComponent {
 
     handleIncrementPage = event => {
         event.preventDefault();
-        return this.props.searchUsers({
-            language: this.props.languages.selectedLanguages,
-            location: this.props.geoLocation.empty ? [] : this.props.geoLocation.location[0],
-        }, this.props.users.page + 1);
+        return this.props.searchUsers(
+            this.props.users.searchParameters,
+            this.props.users.page + 1
+        );
     }
 
     render() {

@@ -7,9 +7,10 @@ const RECEIVE_USERS_INCREMENT = 'RECEIVE_USERS_INCREMENT';
 const FAIL_TO_SEARCH_USERS = 'FAIL_TO_SEARCH_USERS';
 
 
-function waitUsers() {
+function waitUsers(searchParameters) {
     return {
-        type: WAIT_USERS
+        type: WAIT_USERS,
+        payload: {searchParameters}
     };
 }
 
@@ -34,7 +35,7 @@ function failToReceiveUsers(error) {
     };
 }
 
-export function fetchUsersInformations(users, nextPage = false) {
+export function fetchUsersInformations(users, isFirstPage = true) {
     return dispatch => {
         return Promise.all(users.map(
             user => {
@@ -44,21 +45,22 @@ export function fetchUsersInformations(users, nextPage = false) {
                             languages: [...user.languages, ...userLanguages]
                     }))
             }))
-            .then((responses) => dispatch(!nextPage ? receiveUsers(responses) : receiveUsersIncrement(responses)))
+            .then((responses) => dispatch(isFirstPage ? receiveUsers(responses) : receiveUsersIncrement(responses)))
             .catch(error => dispatch(failToReceiveUsers(githubAPI.handleErrorMessage(error))));
     };
 }
 
 export function searchUsers(searchParameters, page=1) {
     return dispatch => {
-        dispatch(waitUsers());
+        const isFirstPage = page <= 1;
+        if (isFirstPage) dispatch(waitUsers(searchParameters));
         return githubAPI.searchUsers(buildSearchQuery(searchParameters, page))
             .then(response => {
                 const users = response.items.map(
                     user => User.fromGithubOject({...user, languages: searchParameters.language})
                 );
-                if (page <= 1) dispatch(receiveUsers(users));
-                return dispatch(fetchUsersInformations(users, page > 1));
+                if (isFirstPage) dispatch(receiveUsers(users));
+                return dispatch(fetchUsersInformations(users, isFirstPage));
             })
             .catch(error => dispatch(failToReceiveUsers(githubAPI.handleErrorMessage(error))));
     };
@@ -68,13 +70,13 @@ const INITIAL_INDICATORS_STATE = {
     loading: false,
     loadingMessage: null,
     error: null,
-    page: 1
+    page: 1,
 };
 
 const INITIAL_STATE = {
     ...INITIAL_INDICATORS_STATE,
     usersInformations: [],
-    page: 1,
+    searchParameters: {},
     empty: true,
 };
 
@@ -85,6 +87,7 @@ const store = (state = INITIAL_STATE, action = null) => {
             return {
                 ...state,
                 error: INITIAL_STATE.error,
+                searchParameters: action.payload.searchParameters,
                 loading: true,
                 loadingMessage: 'Loading users data...'
             };
