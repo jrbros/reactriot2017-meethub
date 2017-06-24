@@ -3,7 +3,12 @@ import React from 'react';
 
 export class Meet extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
+    componentDidMount() {
+        this.props.askForGeoLocation();
+    }
+
     render() {
+        console.log(this.props);
         const fakeFilter = {
             location: 'bordeaux',
             language: ['python']
