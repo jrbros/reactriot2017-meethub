@@ -23,6 +23,22 @@ const Form = styled.form`
     display: flex;
 `;
 
+const Button = styled.button`
+    /* Box model */
+    padding: 0 1.2rem;
+
+    /* Visual */
+    color: #ffffff;
+    background-color: #000000;
+    text-transform: uppercase;
+    border: 0;
+    border-radius: 0 3px 3px 0;
+
+    /* Typography */
+    font-size: .8rem;
+    font-weight: 600;
+`;
+
 const StyledSelectPlaces = styled(SelectPlaces)`
     width: 444px;
 
@@ -43,6 +59,7 @@ const StyledSelectPlaces = styled(SelectPlaces)`
     .Select-menu-outer {
         box-shadow: none;
         width: 680px;
+        margin-top: 0;
         margin-left: -1px;
         border: 1px solid ${props => props.theme.grayLight};
     }
@@ -54,9 +71,13 @@ const StyledSelectPlaces = styled(SelectPlaces)`
     }
 
     &.is-focused:not(.is-open) > .Select-control {
-        border-color: none !important;
-        -webkit-box-shadow: none !important;
-        box-shadow: none !important;
+        border-color: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    &.is-searchable.is-open > .Select-control {
+        border-bottom: 2px solid #000000;
     }
 
     .Select-option.is-focused {
@@ -131,9 +152,9 @@ class Filters extends PureComponent {
                       value={this.props.languages.selectedLanguages}
                       multi
                     />
-                    <button disabled={this.props.geoLocation.empty && this.props.languages.empty}>
+                    <Button disabled={this.props.geoLocation.empty && this.props.languages.empty}>
                         Search
-                    </button>
+                    </Button>
                 </Form>
             </StyledFilters>
         );
