@@ -5,6 +5,8 @@ import LoaderHOC from '../components/Loader';
 
 import loaderConnector from '../connectors/loader';
 
-export default loaderConnector(connect(
+const MeetContainer = connect(
     ({users}) => ({users})
-)(LoaderHOC(Meet)));
+)(Meet);
+
+export default loaderConnector(LoaderHOC(MeetContainer));
