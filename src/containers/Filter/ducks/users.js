@@ -1,4 +1,4 @@
-import githubAPI from '../../../api/github';
+import githubAPI from '../../../apis/github';
 
 const WAIT_USERS = 'WAIT_USERS';
 const RECEIVE_USERS = 'RECEIVE_USERS';
