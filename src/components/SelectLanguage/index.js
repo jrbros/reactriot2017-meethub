@@ -9,6 +9,7 @@ const StyledSelectLanguage = styled.div`
     display: flex;
     height: 100%;
     width: 144px;
+    justify-content: center;
     align-items: center;
     padding: 0 1.125rem;
     position: relative;
@@ -18,11 +19,12 @@ const StyledSelectLanguage = styled.div`
     color: ${props => props.theme.gray};
 
     /* Visual */
+    background-color: #ffffff;
     border-left: 1px solid ${props => props.theme.grayLight};
 `;
 
 const Toggle = styled.div`
-    width: 100%;
+
 `;
 
 const Options = styled.ul`
@@ -32,12 +34,14 @@ const Options = styled.ul`
     position: absolute;
     width: 398px;
     right: 0;
-    top: 10px;
+    top: 33px;
     padding: 1rem 1rem .4375rem 1rem;
 
     /* Visual */
+    background-color: #ffffff;
     border: 1px solid ${props => props.theme.grayLight};
     list-style-type: none;
+    border-radius: 0 0 3px 3px;
 `;
 
 const Option = styled.li`
@@ -89,25 +93,29 @@ class SelectLanguage extends Component {
 
     handleToggleLanguage = event => {
         event.preventDefault();
+        const updatedLanguages = this.state.languages.map(({name, active}) => ({
+            name,
+            active: name === event.target.value ? !active : active
+        }));
         this.setState({
-            languages: this.state.languages.map(({name, active}) => ({
-                name,
-                active: name === event.target.value ? !active : active
-            }))
+            languages: updatedLanguages
         })
+        this.props.onChange(updatedLanguages);
     }
 
     render() {
-        const { languages } = this.state;
+        const { languages, open } = this.state;
         const { theme: { gray }} = this.props;
         const activeLength = languages.filter(language => language.active).length;
         return (
-            <StyledSelectLanguage>
+            <StyledSelectLanguage style={{
+                    borderBottom: open ? '2px solid #000' : '2px solid transparent'
+                }}>
                 <Toggle onClick={this.handleToggle}>
                     { activeLength ? `${activeLength} languages` : 'Filter by language' }
                 </Toggle>
                 {
-                    this.state.open ? (
+                    open ? (
                       <Options>
                           {
                               languages.map(({name, active}, index) => (
@@ -137,11 +145,11 @@ class SelectLanguage extends Component {
 
 
 SelectLanguage.defaultProps = {
-
+    onChange: () => {}
 };
 
 SelectLanguage.propTypes = {
-
+    onChange: PropTypes.func
 };
 
 export default withTheme(SelectLanguage);

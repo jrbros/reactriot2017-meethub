@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import VirtualizedSelect from 'react-virtualized-select'
-import SelectPlaces from 'react-select-places'
-import { lighten } from 'polished'
+import SelectPlaces from 'react-select-places';
+import { lighten } from 'polished';
+
+import SelectLanguage from '../SelectLanguage';
 
 const StyledFilters= styled.div`
     /* Box model */
@@ -11,11 +12,12 @@ const StyledFilters= styled.div`
     margin: 0 auto;
     max-width: 680px;
     width: 100%;
+    height: 48px;
     margin-top: -18px;
 
     /* Visual */
-    border: 1px solid ${props => props.theme.grayLight};
     border-radius: 3px;
+    border-bottom: 1px solid #ddd;
 `;
 
 const Form = styled.form`
@@ -33,18 +35,41 @@ const Button = styled.button`
     text-transform: uppercase;
     border: 0;
     border-radius: 0 3px 3px 0;
+    cursor: pointer;
 
     /* Typography */
     font-size: .8rem;
     font-weight: 600;
+
+    &:focus {
+        outline: none;
+    }
 `;
 
 const StyledSelectPlaces = styled(SelectPlaces)`
     width: 444px;
+    height: 100%;
 
     .Select-control {
         border: none;
-        border-radius: 0;
+        border-radius: 3px 0 0 3px;
+        height: 100%;
+
+        &:hover {
+            box-shadow: none;
+        }
+    }
+
+    .Select-placeholder {
+        padding: .4rem .8rem;
+    }
+
+    .Select-value {
+        padding: .4rem .8rem;
+    }
+
+    .Select-control {
+        padding: .3rem .1rem;
     }
 
     .Select-placeholder, .Select--single > .Select-control .Select-value {
@@ -59,9 +84,12 @@ const StyledSelectPlaces = styled(SelectPlaces)`
     .Select-menu-outer {
         box-shadow: none;
         width: 680px;
-        margin-top: 0;
+        margin-top: 1px;
         margin-left: -1px;
-        border: 1px solid ${props => props.theme.grayLight};
+        border-top: 0;
+        border-right: 1px solid ${props => props.theme.grayLight};
+        border-left: 1px solid ${props => props.theme.grayLight};
+        border-bottom: 1px solid ${props => props.theme.grayLight};
     }
 
     .Select-option {
@@ -86,13 +114,7 @@ const StyledSelectPlaces = styled(SelectPlaces)`
     }
 `;
 
-const options = [
-    { label: 'JavaScript', value: 'JavaScript' },
-    { label: 'Python', value: 'Python' },
-];
-
 class Filters extends PureComponent {
-
     componentWillMount() {
         this.canBeSubmitted = true;
     }
@@ -114,12 +136,13 @@ class Filters extends PureComponent {
         return isNotEmpty && (locationIsNew || languagesAreNew);
     }
 
-    handleChangeLanguage = value => {
-        this.props.updateLanguages(value.map(v => v.value));
+    handleChangeLanguage = languages => {
+        const activeLanguages = languages.filter(language => language.active).map(({name}) => name);
+        this.props.updateLanguages(activeLanguages);
     }
 
-    handleChangeLocation = value => {
-        this.props.updateGeoLocation(value);
+    handleChangeLocation = location => {
+        this.props.updateGeoLocation(location);
     }
 
     handleSubmit = event => {
@@ -146,15 +169,10 @@ class Filters extends PureComponent {
                           types: ['(cities)']
                         }}
                     />
-                    <VirtualizedSelect
-                      options={options}
-                      onChange={this.handleChangeLanguage}
-                      value={this.props.languages.selectedLanguages}
-                      multi
-                    />
-                    <Button disabled={this.props.geoLocation.empty && this.props.languages.empty}>
-                        Search
-                    </Button>
+                <SelectLanguage onChange={this.handleChangeLanguage} />
+                <Button disabled={this.props.geoLocation.empty && this.props.languages.empty}>
+                    Search
+                </Button>
                 </Form>
             </StyledFilters>
         );
