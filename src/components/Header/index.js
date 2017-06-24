@@ -12,7 +12,7 @@ const StyledHeader = styled.header`
     padding-top: 1.188rem;
 
     /* Visual */
-    background-image: linear-gradient(263deg, #00c9ff, #92fe9d);
+    background-image: linear-gradient(263deg, ${props => props.theme.blue}, ${props => props.theme.green});
 `;
 
 const Logo = styled.h1`
