@@ -28,7 +28,6 @@ function failToReceiveUsers(error) {
 
 export function fetchUsersInformations(users) {
     return dispatch => {
-        dispatch(waitUsers());
         return Promise.all(users.map(
             user => {
                 return Promise.all([githubAPI.getUser(user.login), githubAPI.getUserLanguages(user.login)])

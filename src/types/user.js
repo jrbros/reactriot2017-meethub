@@ -7,7 +7,8 @@ class User {
             name,
             login,
             htmlUrl: html_url,
-            location, languages
+            location,
+            languages
         })
     }
 

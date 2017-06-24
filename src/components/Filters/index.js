@@ -52,6 +52,27 @@ const options = [
 
 class Filters extends PureComponent {
 
+    componentWillMount() {
+        this.canBeSubmitted = true;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.canBeSubmitted = this._checkBeforeSubmit(nextProps);
+    }
+
+    _checkBeforeSubmit(nextProps) {
+        const isNotEmpty = !(nextProps.geoLocation.empty && nextProps.languages.empty);
+        const locationIsNew = (
+            JSON.stringify(this.props.geoLocation.location) !==
+            JSON.stringify(nextProps.geoLocation.location)
+        );
+        const languagesAreNew = (
+            JSON.stringify(this.props.languages.selectedLanguages) !==
+            JSON.stringify(nextProps.languages.selectedLanguages)
+        );
+        return isNotEmpty && (locationIsNew || languagesAreNew);
+    }
+
     handleChangeLanguage = value => {
         this.props.updateLanguages(value.map(v => v.value));
     }
@@ -62,8 +83,8 @@ class Filters extends PureComponent {
 
     handleSubmit = event => {
         event.preventDefault();
-        if (!(this.props.geoLocation.empty && this.props.languages.empty)) {
-            console.log(this.props.geoLocation);
+        if (this.canBeSubmitted) {
+            this.canBeSubmitted = false;
             return this.props.searchUsers({
                 language: this.props.languages.selectedLanguages,
                 location: this.props.geoLocation.empty ? [] : this.props.geoLocation.location[0]

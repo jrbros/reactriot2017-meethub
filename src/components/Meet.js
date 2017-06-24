@@ -19,7 +19,6 @@ const Item = styled.li`
 export class Meet extends PureComponent {
 
     render() {
-        console.log(this.props.users);
         return (
             <List>
                 {

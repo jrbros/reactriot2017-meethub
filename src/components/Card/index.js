@@ -92,7 +92,7 @@ const Card = ({avatarUrl, name, htmlUrl, login, location, languages}) => (
       <img src={avatarUrl} alt={name} width='230' height='230' />
       <Content>
           <Title>
-              <Link href={htmlUrl}>{name}</Link>
+              <Link href={htmlUrl} target="_blank">{name}</Link>
           </Title>
           <Copy>{location}</Copy>
           <List>
