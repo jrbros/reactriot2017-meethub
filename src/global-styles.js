@@ -4,5 +4,7 @@ import { injectGlobal } from 'styled-components';
 injectGlobal`
     body {
         font-family: 'Source Sans Pro', Helvetica, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        line-height: 1.5;
     }
 `;
