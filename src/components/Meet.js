@@ -2,6 +2,14 @@ import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import Card from './Card';
+import LoaderHOC from '../components/Loader';
+
+
+const Wrapper = styled.div`
+    /* Box model */
+    display: flex;
+    flex-direction: column;
+`;
 
 const List = styled.ul`
     /* Box model */
@@ -16,8 +24,8 @@ const Item = styled.li`
     margin: 1rem .6rem;
 `;
 
-const Button = styled.button`
-`;
+const Button = LoaderHOC(styled.button`
+`);
 
 export class Meet extends PureComponent {
 
@@ -31,31 +39,38 @@ export class Meet extends PureComponent {
 
     render() {
         return (
-            <List>
+            <Wrapper>
+                <List>
+                    {
+                        this.props.users.usersInformations.map((user, index) => (
+                            <Item key={index}>
+                                <Card
+                                    {...user}
+                                    languages={user.languages.slice(0, 6)}
+                                    />
+                            </Item>
+                        ))
+                    }
+                </List>
                 {
-                    this.props.users.usersInformations.map((user, index) => (
-                        <Item key={index}>
-                            <Card
-                                {...user}
-                                languages={user.languages.slice(0, 6)}
-                                />
-                        </Item>
-                    ))
+                    !this.props.users.empty ?
+                        <Button
+                          onClick={this.handleIncrementPage}
+                          loading={this.props.users.loadingIncrement}>
+                          +
+                        </Button> : null
                 }
-                {
-                    this.props.users.empty ? null : <Button onClick={this.handleIncrementPage}>+</Button>
-                }
-            </List>
+            </Wrapper>
         );
     }
 }
 
 Meet.defaultProps = {
-    users: [],
+    users: {},
 };
 
 Meet.propTypes = {
-    users: PropTypes.array,
+    users: PropTypes.object,
 };
 
 export default Meet;

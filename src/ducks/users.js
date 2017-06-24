@@ -2,6 +2,7 @@ import githubAPI, { buildSearchQuery } from '../apis/github';
 import User from '../types/user';
 
 const WAIT_USERS = 'WAIT_USERS';
+const WAIT_USERS_INCREMENT = 'WAIT_USERS_INCREMENT';
 const RECEIVE_USERS = 'RECEIVE_USERS';
 const RECEIVE_USERS_INCREMENT = 'RECEIVE_USERS_INCREMENT';
 const FAIL_TO_SEARCH_USERS = 'FAIL_TO_SEARCH_USERS';
@@ -11,6 +12,12 @@ function waitUsers(searchParameters) {
     return {
         type: WAIT_USERS,
         payload: {searchParameters}
+    };
+}
+
+function waitUsersIncrement() {
+    return {
+        type: WAIT_USERS_INCREMENT,
     };
 }
 
@@ -53,7 +60,7 @@ export function fetchUsersInformations(users, isFirstPage = true) {
 export function searchUsers(searchParameters, page=1) {
     return dispatch => {
         const isFirstPage = page <= 1;
-        if (isFirstPage) dispatch(waitUsers(searchParameters));
+        dispatch(isFirstPage ? waitUsers(searchParameters) : waitUsersIncrement());
         return githubAPI.searchUsers(buildSearchQuery(searchParameters, page))
             .then(response => {
                 const users = response.items.map(
@@ -68,7 +75,7 @@ export function searchUsers(searchParameters, page=1) {
 
 const INITIAL_INDICATORS_STATE = {
     loading: false,
-    loadingMessage: null,
+    loadingIncrement: false,
     error: null,
     page: 1,
 };
@@ -89,7 +96,12 @@ const store = (state = INITIAL_STATE, action = null) => {
                 error: INITIAL_STATE.error,
                 searchParameters: action.payload.searchParameters,
                 loading: true,
-                loadingMessage: 'Loading users data...'
+            };
+        case 'WAIT_USERS_INCREMENT':
+            return {
+                ...state,
+                error: INITIAL_STATE.error,
+                loadingIncrement: true,
             };
         case 'RECEIVE_USERS':
             return {
