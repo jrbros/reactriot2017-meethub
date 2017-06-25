@@ -1,4 +1,5 @@
 import githubAPI, { updateAPIToken, parseConnectedUserToken } from '../apis/github';
+import { updateLanguages } from './languages';
 import User from '../types/user';
 
 const RECEIVE_CONNECTED_USER_TOKEN = 'RECEIVE_CONNECTED_USER_TOKEN';
@@ -7,7 +8,6 @@ const FAIL_TO_RECEIVE_CONNECTED_USER = 'FAIL_TO_RECEIVE_CONNECTED_USER';
 
 
 function receiveConnectedUserToken(token) {
-    console.log(token);
     if (token) updateAPIToken(token);
     return {
         type: RECEIVE_CONNECTED_USER_TOKEN,
@@ -33,13 +33,15 @@ function getConnectedUser() {
     return dispatch => {
         return githubAPI.getCompleteUserInformations()
             .then(response => {
-                dispatch(receiveConnectedUser(User.fromGithubOject(response)))
+                const userInformations = User.fromGithubOject(response);
+                dispatch(updateLanguages(userInformations.languages))
+                return dispatch(receiveConnectedUser(userInformations))
             })
             .catch(error => dispatch(failToReceiveConnectedUser(githubAPI.handleErrorMessage(error))));
     };
 }
 
-export function getConnectedUserToken(githubCode) {
+function getConnectedUserToken(githubCode) {
     return dispatch => {
         return githubAPI.getConnectedUserToken(githubCode)
             .then(response => {
@@ -92,4 +94,7 @@ const store = (state = INITIAL_STATE, action = null) => {
     }
 }
 
+export {
+    getConnectedUserToken
+};
 export default store;

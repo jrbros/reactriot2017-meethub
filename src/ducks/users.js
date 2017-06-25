@@ -42,7 +42,7 @@ function failToReceiveUsers(error) {
     };
 }
 
-export function fetchUsersInformations(users, isFirstPage = true) {
+function fetchUsersInformations(users, isFirstPage = true) {
     return dispatch => {
         return Promise.all(users.map(
             user => {
@@ -60,7 +60,7 @@ export function fetchUsersInformations(users, isFirstPage = true) {
     };
 }
 
-export function searchUsers(searchParameters, page=1) {
+function searchUsers(searchParameters, page=1) {
     return dispatch => {
         const isFirstPage = page <= 1;
         dispatch(isFirstPage ? waitUsers(searchParameters) : waitUsersIncrement());
@@ -132,4 +132,8 @@ const store = (state = INITIAL_STATE, action = null) => {
     }
 }
 
+export {
+    fetchUsersInformations,
+    searchUsers
+};
 export default store;

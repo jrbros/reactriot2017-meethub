@@ -132,7 +132,6 @@ function getUser(userLogin) {
      * @param {String} userLogin The github user login to get.
      * @returns {Promise} The promise giving the users search results.
      */
-    console.log("aaaa", GET_CONFIG);
     return fetch(
         userLogin ? `${USERS_API}/${userLogin}` : `${CONNECTED_USER_API}`,
         GET_CONFIG

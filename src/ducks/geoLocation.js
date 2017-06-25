@@ -4,7 +4,7 @@ const UPDATE_GEO_LOCATION = 'UPDATE_GEO_LOCATION';
 const REFUSE_GEO_LOCATION = 'REFUSE_GEO_LOCATION';
 const FAIL_GEO_LOCATION = 'FAIL_GEO_LOCATION';
 
-export function updateGeoLocation(location) {
+function updateGeoLocation(location) {
     return {
         type: UPDATE_GEO_LOCATION,
         payload: {placeId: location.place_id, location: parseLocation(location)}
@@ -24,7 +24,7 @@ function failGeoLocation(error) {
     };
 }
 
-export function askForGeoLocation() {
+function askForGeoLocation() {
     return dispatch => {
         try {
             return navigator.geolocation.getCurrentPosition(
@@ -71,4 +71,8 @@ const store = (state = INITIAL_STATE, action = null) => {
     }
 }
 
+export {
+    askForGeoLocation,
+    updateGeoLocation
+};
 export default store;
