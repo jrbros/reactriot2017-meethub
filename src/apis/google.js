@@ -8,7 +8,7 @@ const ERROR_HANDLER = {
 };
 
 
-export function parseLocation(location) {
+function parseLocation(location) {
     /**
      * Parse google geolication api response to only return the location as city, country....
      * @param {Object} location A complex response coming from google.
@@ -21,7 +21,7 @@ export function parseLocation(location) {
     }
 }
 
-export function getLocation(coordinates) {
+function getLocation(coordinates) {
     /**
      * Call the google geolocation search api by passing a coordinates object.
      * @param {Coordinates} coordinates A Coordinate object givent by js geoloc.
@@ -36,12 +36,15 @@ export function getLocation(coordinates) {
     );
 }
 
-export function handleErrorMessage(error) {
+function handleErrorMessage(error) {
     console.error(error);
     if (!error || !error.response || ERROR_HANDLER[error.response.status] === undefined) return ERROR_HANDLER[null];
     return ERROR_HANDLER[error.response.status];
 }
 
+export {
+    parseLocation
+};
 export default {
     getLocation,
     handleErrorMessage

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
+
+import { USER_CONNECTION_URL } from '../apis/github';
 
 const Wrapper = styled.div `
     height: 100%;
@@ -18,7 +19,7 @@ const Title = styled.h2 `
     font-weight: 300;
 `;
 
-const Button = styled.button `
+const Button = styled.a `
     padding: 1rem 2rem;
     color: #ffffff;
     text-transform: uppercase;
@@ -37,7 +38,7 @@ class Home extends Component {
                     Search directly or connect with your GitHub account,<br/>
                     and get personnalize results linked to your profil
                 </Title>
-                <Button>Connect with GitHub</Button>
+                <Button href={USER_CONNECTION_URL}>Connect with GitHub</Button>
             </Wrapper>
         );
     }

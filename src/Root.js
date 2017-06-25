@@ -6,8 +6,8 @@ import { ConnectedRouter} from 'react-router-redux';
 
 import App from './containers/App';
 import Meet from './containers/Meet';
+import Home from './containers/Home';
 import PageNotFound from './components/PageNotFound';
-import Home from './components/Home';
 
 import store, { history } from './store';
 import theme from './theme';

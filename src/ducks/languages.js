@@ -1,7 +1,7 @@
 
 const UPDATE_LANGUAGES = 'UPDATE_LANGUAGES';
 
-export function updateLanguages(languages) {
+function updateLanguages(languages) {
     return {
         type: UPDATE_LANGUAGES,
         payload: {languages}
@@ -25,4 +25,7 @@ const store = (state = INITIAL_STATE, action = null) => {
     }
 }
 
+export {
+    updateLanguages
+};
 export default store;

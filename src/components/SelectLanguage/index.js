@@ -88,10 +88,7 @@ class SelectLanguage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            languages: LANGUAGES.map(language => ({
-                name: language,
-                active: false
-            })),
+            activeLanguages: {},
             open: false
         }
     }
@@ -102,6 +99,12 @@ class SelectLanguage extends Component {
 
     componentWillUnmount() {
         document.removeEventListener('click', this.handleClickOutside, false);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            activeLanguages: Object.assign({}, ...nextProps.languages.map(language => ({[language]: true})))
+        });
     }
 
     handleClickOutside = event => {
@@ -120,20 +123,21 @@ class SelectLanguage extends Component {
 
     handleToggleLanguage = event => {
         event.preventDefault();
-        const updatedLanguages = this.state.languages && this.state.languages.map(({name, active}) => ({
-            name,
-            active: name === event.target.value ? !active : active
-        }));
-        this.setState({
-            languages: updatedLanguages
-        })
+        const languageToUpdate = event.target.value;
+        const newActiveLanguages = {
+            ...this.state.activeLanguages,
+            [languageToUpdate]: !this.state.activeLanguages[languageToUpdate]
+        };
+        const updatedLanguages = Object.entries(newActiveLanguages)
+            .filter(([_, active]) => active)
+            .map(([language, _]) => language);
         this.props.onChange(updatedLanguages);
     }
 
     render() {
-        const { languages, open } = this.state;
-        const { theme: { gray } } = this.props;
-        const activeLength = languages.filter(language => language.active).length;
+        const { activeLanguages, open } = this.state;
+        const { languages, theme: { gray } } = this.props;
+        const activeLength = languages.filter(language => activeLanguages[language]).length;
         return (
             <div ref={node => (this.node = node)}>
                 <StyledSelectLanguage
@@ -151,20 +155,20 @@ class SelectLanguage extends Component {
                       }}
                     >
                         {
-                            languages.map(({name, active}, index) => (
+                            LANGUAGES.map((language, index) => (
                                 <Option key={index} style={{
-                                  backgroundColor: active ? gray : 'transparent',
-                                  color: active ? '#fff' : gray
+                                  backgroundColor: activeLanguages[language] ? gray : 'transparent',
+                                  color: activeLanguages[language] ? '#fff' : gray
                                 }}>
-                                    <Label htmlFor={name} />
+                                    <Label htmlFor={language} />
                                     <Checkbox
                                       type='checkbox'
-                                      id={name}
-                                      value={name}
-                                      checked={active}
+                                      id={language}
+                                      value={language}
+                                      checked={activeLanguages[language]}
                                       onChange={this.handleToggleLanguage}
                                     />
-                                    {name}
+                                {language}
                                 </Option>
                             ))
                         }
