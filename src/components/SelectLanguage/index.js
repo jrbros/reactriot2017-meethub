@@ -7,12 +7,9 @@ import LANGUAGES from '../../constants/languages';
 
 const StyledSelectLanguage = styled.div`
     /* Box model */
-    display: flex;
     height: 100%;
     width: 156px;
-    justify-content: center;
-    align-items: center;
-    padding: 0 1.125rem;
+    padding: 0 .2rem;
     position: relative;
 
     /* Typo */
@@ -27,6 +24,14 @@ const StyledSelectLanguage = styled.div`
 `;
 
 const Toggle = styled.div`
+    /* Box model */
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Typo */
     font-size: 1rem;
 `;
 
@@ -89,21 +94,19 @@ class SelectLanguage extends Component {
             })),
             open: false
         }
-        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     componentDidMount() {
         document.addEventListener('click', this.handleClickOutside, false);
     }
 
-   componentWillUnmount() {
+    componentWillUnmount() {
         document.removeEventListener('click', this.handleClickOutside, false);
     }
 
-   handleClickOutside(event) {
+    handleClickOutside = event => {
         const domNode = this.node; // eslint-disable-line react/no-find-dom-node
         if (this.state.open && (!domNode || !domNode.contains(event.target))) {
-            this.props.disableSearch();
             this.setState({
                 open: false
             });
@@ -112,7 +115,7 @@ class SelectLanguage extends Component {
 
     handleToggle = event => {
         event.preventDefault();
-        this.setState({ open: !this.state.open })
+        this.setState({ open: !this.state.open });
     }
 
     handleToggleLanguage = event => {
@@ -129,12 +132,11 @@ class SelectLanguage extends Component {
 
     render() {
         const { languages, open } = this.state;
-        const { theme: { gray }, activeSearch} = this.props;
+        const { theme: { gray } } = this.props;
         const activeLength = languages.filter(language => language.active).length;
         return (
             <div ref={node => (this.node = node)}>
                 <StyledSelectLanguage
-                    onClick={activeSearch}
                     style={{
                         borderBottom: open ? '2px solid #000' : '2px solid transparent'
                     }}

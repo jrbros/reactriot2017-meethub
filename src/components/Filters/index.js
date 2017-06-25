@@ -130,6 +130,14 @@ class Filters extends PureComponent {
         this.canBeSubmitted = true;
     }
 
+    componentDidMount() {
+        document.addEventListener('click', this.handleClickOutsideFilters, false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this.handleClickOutsideFilters, false);
+    }
+
     componentWillReceiveProps(nextProps) {
         this.canBeSubmitted = this._checkBeforeSubmit(nextProps);
     }
@@ -156,8 +164,16 @@ class Filters extends PureComponent {
         this.props.updateGeoLocation(location);
     }
 
+    handleClickOutsideFilters = event => {
+        const domNode = this.node; // eslint-disable-line react/no-find-dom-node
+        if ((!domNode || !domNode.contains(event.target)) && event.target.id !== 'SearchButton') {
+            this.props.disableSearch();
+        }
+    }
+
     handleSubmit = event => {
         event.preventDefault();
+        this.props.disableSearch();
         if (this.canBeSubmitted) {
             this.canBeSubmitted = false;
             return this.props.searchUsers({
@@ -167,35 +183,33 @@ class Filters extends PureComponent {
         }
     }
 
-    activeSearch = event => {
-        event.preventDefault();
-        this.props.activeSearch();
-    }
-
     render() {
-        const { geoLocation, activeSearch, disableSearch, languages } = this.props;
+        const { geoLocation, languages, activeSearch, disableSearch } = this.props;
         return (
             <StyledFilters>
                 <Form onSubmit={this.handleSubmit}>
-                    <StyledSelectPlaces
-                      value={{placeId: geoLocation.placeId}}
-                      onChange={this.handleChangeLocation}
-                      onFocus={activeSearch}
-                      onClose={disableSearch}
-                      clearable={false}
-                      placeholder='Select city...'
-                      autocompletionRequest={{
-                          types: ['(cities)']
-                        }}
-                    />
-                <SelectLanguage
-                    onChange={this.handleChangeLanguage}
-                    disableSearch={disableSearch}
-                    activeSearch={activeSearch}
-                />
-                <Button disabled={geoLocation.empty && languages.empty}>
-                    Search
-                </Button>
+                    <div
+                        style={{ display: 'flex'}}
+                        onClick={activeSearch}
+                        ref={node => (this.node = node)}
+                    >
+                        <StyledSelectPlaces
+                          value={{placeId: geoLocation.placeId}}
+                          onChange={this.handleChangeLocation}
+                          clearable={false}
+                          placeholder='Select city...'
+                          autocompletionRequest={{
+                              types: ['(cities)']
+                            }}
+                        />
+                        <SelectLanguage
+                            onChange={this.handleChangeLanguage}
+                            disableSearch={disableSearch}
+                        />
+                    </div>
+                    <Button id='SearchButton' disabled={geoLocation.empty && languages.empty}>
+                        Search
+                    </Button>
                 </Form>
             </StyledFilters>
         );
