@@ -1,7 +1,32 @@
 {
   "name": "meethub",
   "version": "0.1.0",
+  "homepage": "https://hackbit.github.io/meethub",
+  "license": "MIT",
+  "contributors": [
+      {
+          "name": "Jeremy Raffin",
+          "email": "jeremy.raffin@gmail.com"
+      },
+      {
+          "name": "Jerome Raffin",
+          "email": "raffin.jerome@gmail.com"
+      },
+      {
+          "name": "Guillaume Mousnier",
+          "email": "mousnier.guillaume@gmail.com"
+      }
+  ],
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "deploy" : "npm test && npm run build && gh-pages -d build",
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
+},
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
     "normalize.css": "^7.0.0",
@@ -22,13 +47,5 @@
   "devDependencies": {
     "react-scripts": "1.0.7",
     "@storybook/react": "^3.1.5"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
   }
 }
