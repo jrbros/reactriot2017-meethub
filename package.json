@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "sed -i 's/\\/meethub\\//.\\//g' ./build/index.html && sed -i 's/\\/meethub\\//.\\//g' ./build/service-worker.js",
+    "postbuild": "sed -i 's/\\/meethub\\//.\\//g' ./build/index.html && sed -i 's/\\/meethub\\//.\\//g' ./build/service-worker.js && sed -i 's/\\/meethub\\//.\\//g' ./build/static/js/*.js",
     "test": "react-scripts test --env=jsdom",
     "predeploy": "npm test && npm run build",
     "deploy": "gh-pages -d build",
