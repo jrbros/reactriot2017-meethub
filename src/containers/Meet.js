@@ -10,7 +10,7 @@ import { searchUsers } from '../ducks/users';
 
 
 const MeetContainer = connect(
-    ({users}) => ({users, loading: users.loading, error: users.error}),
+    ({users, connectedUser}) => ({users, loading: users.loading, error: users.error, allowEmails: !connectedUser.empty}),
     dispatch => bindActionCreators({searchUsers}, dispatch)
 )(ErrorHOC(LoaderHOC(EmptyStateHOC(Meet))));
 

@@ -1,4 +1,15 @@
 
+## v0.5.0
+
+**Author**: Jeremy Raffin, Guillaume Mousner.
+
+**Type**: Feature
+
+**Changes**:
+- Adding Say Hello on connected users
+
+---
+
 ## v0.4.1
 
 **Author**: Guillaume Mousner.
