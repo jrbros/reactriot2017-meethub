@@ -10,7 +10,7 @@ const StyledApp = styled.div`
     /* Box model */
     display: flex;
     flex-direction: column;
-    height: 100%;
+    min-height: 100%;
 
     /* Visual */
     background-color: #F5F5F5;
