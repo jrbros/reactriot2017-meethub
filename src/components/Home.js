@@ -20,14 +20,20 @@ const Title = styled.h2 `
 `;
 
 const Button = styled.a `
+    /* Box model */
     padding: 1rem 2rem;
+
+    /* Typo */
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
     color: #ffffff;
     text-transform: uppercase;
+
+    /* Visual */
     background-color: #000000;
     border-radius: 3px;
     border: 0;
-    font-size: 1rem;
-    font-weight: 600;
 `;
 
 class Home extends Component {
