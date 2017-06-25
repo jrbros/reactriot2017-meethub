@@ -7,6 +7,7 @@ const FAIL_TO_RECEIVE_CONNECTED_USER = 'FAIL_TO_RECEIVE_CONNECTED_USER';
 
 
 function receiveConnectedUserToken(token) {
+    console.log(token);
     if (token) updateAPIToken(token);
     return {
         type: RECEIVE_CONNECTED_USER_TOKEN,
@@ -30,10 +31,8 @@ function failToReceiveConnectedUser(error) {
 
 function getConnectedUser() {
     return dispatch => {
-        return githubAPI.getUser()
+        return githubAPI.getCompleteUserInformations()
             .then(response => {
-                console.log(response);
-                githubAPI.getUserLanguages().then(e => console.log(e));
                 dispatch(receiveConnectedUser(User.fromGithubOject(response)))
             })
             .catch(error => dispatch(failToReceiveConnectedUser(githubAPI.handleErrorMessage(error))));

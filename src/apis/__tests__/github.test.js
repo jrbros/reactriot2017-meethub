@@ -1,6 +1,7 @@
 import githubAPI, {
     buildSearchQuery, checkIfCurrentUrlContainsCodeParameter,
-    extractCodeParameterFromCurrentUrl, parseConnectedUserToken
+    extractCodeParameterFromCurrentUrl, parseConnectedUserToken,
+    GET_CONFIG, updateAPIToken
 } from '../github';
 
 it('can build a query from a simple parameter object', () => {
@@ -51,4 +52,9 @@ it('can extract github code parameter from current url', () => {
 it('can parse connected user token obtained by github', () => {
     const result = parseConnectedUserToken('access_token=72de98c05a49df02024a6e90fc43607bbf796074&scope=&token_type=bearer');
     expect(result).toBe('72de98c05a49df02024a6e90fc43607bbf796074');
+});
+
+it('can update GET_CONFIG github token by reference', () => {
+    updateAPIToken('72de98c05a49df02024a6e90fc43607bbf796074');
+    expect(GET_CONFIG.headers.Authorization).toBe('token 72de98c05a49df02024a6e90fc43607bbf796074');
 });
