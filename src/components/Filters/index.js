@@ -175,7 +175,9 @@ class Filters extends PureComponent {
         event.preventDefault();
         this.props.disableSearch();
         console.log(this.props);
-        this.props.push('meet');
+        if (this.props.pathname !== '/meet') {
+            this.props.push('meet');
+        }
         if (this.canBeSubmitted) {
             this.canBeSubmitted = false;
             return this.props.searchUsers({
