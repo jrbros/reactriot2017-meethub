@@ -1,8 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Router from './router';
-import registerServiceWorker from './registerServiceWorker';
-import './css/index.css';
+import Root from './Root';
+// import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<Router />, document.getElementById('root'));
-registerServiceWorker();
+import 'normalize.css/normalize.css';
+import 'react-select/dist/react-select.css'
+import 'react-virtualized/styles.css'
+import 'react-virtualized-select/styles.css'
+import './global-styles';
+
+ReactDOM.render(<Root />, document.getElementById('root'));
+// registerServiceWorker();
