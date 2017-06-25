@@ -2,13 +2,13 @@
 const ACTIVE_SEARCH = 'ACTIVE_SEARCH';
 const DISABLE_SEARCH = 'DISABLE_SEARCH';
 
-export function activeSearch() {
+function activeSearch() {
     return {
         type: ACTIVE_SEARCH
     };
 }
 
-export function disableSearch() {
+function disableSearch() {
     return {
         type: DISABLE_SEARCH
     };
@@ -33,4 +33,8 @@ const store = (state = INITIAL_STATE, action = null) => {
     }
 }
 
+export {
+    disableSearch,
+    activeSearch
+};
 export default store;

@@ -1,6 +1,38 @@
 
 ---
 
+## v0.3.0
+
+**Author**: Guillaume Mousnier, Jeremy Raffin, Jerome Raffin.
+
+**Type**: Feature
+
+**Changes**:
+- Add a new Homepage
+- Add a connection to github
+- Catching the connected users informations
+- Refact
+- Fix some styles
+- Adding the widget
+
+---
+
+## v0.2.0
+
+**Author**: Guillaume Mousnier, Jeremy Raffin, Jerome Raffin.
+
+**Type**: Feature
+
+**Changes**:
+- Add 404 component
+- Add Error component
+- Add languages badges colors
+- Favicons
+- Update manifest
+- Fix some styles
+
+---
+
 ## v0.2.0
 
 **Author**: Guillaume Mousnier, Jeremy Raffin, Jerome Raffin.

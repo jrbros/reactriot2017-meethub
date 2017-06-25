@@ -42,22 +42,25 @@ function failToReceiveUsers(error) {
     };
 }
 
-export function fetchUsersInformations(users, isFirstPage = true) {
+function fetchUsersInformations(users, isFirstPage = true) {
     return dispatch => {
         return Promise.all(users.map(
             user => {
-                return Promise.all([githubAPI.getUser(user.login), githubAPI.getUserLanguages(user.login)])
-                    .then(([userInformation, userLanguages]) => User.fromGithubOject({
-                            ...userInformation,
-                            languages: [...user.languages, ...userLanguages]
-                    }))
+                return githubAPI.getCompleteUserInformations(user.login)
+                    .then(response => {
+                        const userInformations = User.fromGithubOject(response);
+                        return new User({
+                            ...userInformations,
+                            languages: [...user.languages, ...userInformations.languages]
+                        });
+                    });
             }))
             .then((responses) => dispatch(isFirstPage ? receiveUsers(responses) : receiveUsersIncrement(responses)))
             .catch(error => dispatch(failToReceiveUsers(githubAPI.handleErrorMessage(error))));
     };
 }
 
-export function searchUsers(searchParameters, page=1) {
+function searchUsers(searchParameters, page=1) {
     return dispatch => {
         const isFirstPage = page <= 1;
         dispatch(isFirstPage ? waitUsers(searchParameters) : waitUsersIncrement());
@@ -129,4 +132,8 @@ const store = (state = INITIAL_STATE, action = null) => {
     }
 }
 
+export {
+    fetchUsersInformations,
+    searchUsers
+};
 export default store;

@@ -3,10 +3,27 @@ import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 
 import Header from './Header';
+import Footer from './Footer';
 import Filters from '../containers/Filters';
+import { checkIfCurrentUrlContainsCodeParameter, extractCodeParameterFromCurrentUrl } from '../apis/github';
+
+const StyledApp = styled.div`
+    /* Box model */
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+
+    /* Visual */
+    background-color: #F5F5F5;
+    background-image: ${props => props.pathname === '/' ?
+    'linear-gradient(263deg, #00c9ff, #92fe9d)' :
+    'none'};
+`;
 
 
 const Main = styled.main`
+    flex: 1 0 auto;
+
     &:before {
         /* Box model */
         content: '';
@@ -28,19 +45,23 @@ const Main = styled.main`
 
 class App extends Component {
 
-    componentDidMount() {
+    componentWillMount() {
         this.props.askForGeoLocation();
+        if (checkIfCurrentUrlContainsCodeParameter(window)) {
+            this.props.getConnectedUserToken(extractCodeParameterFromCurrentUrl(window));
+        }
     }
 
     render() {
         return (
-            <div>
+            <StyledApp pathname={this.props.pathname}>
                 <Header />
                 <Filters />
                 <Main searchIsActive={this.props.searchIsActive}>
                     {this.props.children}
                 </Main>
-            </div>
+                <Footer/>
+            </StyledApp>
         );
     }
 }
