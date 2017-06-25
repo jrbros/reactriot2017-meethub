@@ -76,7 +76,7 @@ export class Meet extends PureComponent {
     }
 
     render() {
-        const { users: { usersInformations, loadingIncrement, empty, page },  } = this.props;
+        const { allowEmails, users: { usersInformations, loadingIncrement, empty, page },  } = this.props;
         return (
             <Wrapper>
                 <List>
@@ -84,7 +84,7 @@ export class Meet extends PureComponent {
                         usersInformations.map((user, index) => (
                             <Item key={index}>
                                 <Card
-                                    {...user}
+                                    {...{...user, email: allowEmails ? user.email : null}}
                                     languages={user.languages.slice(0, 6)}
                                   />
                             </Item>
