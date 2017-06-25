@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import Meethub from './meethub@2x.png';
 
@@ -38,7 +39,7 @@ const Baseline = styled.h2`
 const Header = () => (
   <StyledHeader>
       <Logo>
-          <img src={Meethub} alt='Meethub' width='192' height='41' />
+          <Link to='/'><img src={Meethub} alt='Meethub' width='192' height='41' /></Link>
       </Logo>
       <Baseline>Push some filters, meet future friends</Baseline>
   </StyledHeader>
