@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import SelectPlaces from 'react-select-places';
 import { lighten } from 'polished';
 
-import SelectLanguage from '../SelectLanguage';
-import { USER_CONNECTION_URL } from '../../apis/github';
+import SelectLanguage from './SelectLanguage';
+import { USER_CONNECTION_URL } from '../apis/github';
 
 const StyledFilters= styled.div`
     /* Box model */
