@@ -141,16 +141,38 @@ function getUser(userLogin) {
     );
 }
 
-function getUserLanguages(userLogin) {
+function getUserGists(userLogin) {
     /**
-     * Call the github users api by passing a user login.
+     * Call the github users api by passing a user login to catch its repositories.
      * @param {String} userLogin The github user login to get.
      * @returns {Promise} The promise giving the users search results.
      */
     return fetch(
         userLogin ? `${USERS_API}/${userLogin}/repos` : `${CONNECTED_USER_API}/repos`,
         GET_CONFIG
-    ).then(repos => [...new Set(repos.filter(({language}) => Boolean(language)).map(({language}) => language))]);
+    );
+}
+
+function getUserRepositories(userLogin) {
+    /**
+     * Call the github users api by passing a user login to catch its repositories.
+     * @param {String} userLogin The github user login to get.
+     * @returns {Promise} The promise giving the users search results.
+     */
+    return fetch(
+        userLogin ? `${USERS_API}/${userLogin}/repos` : `${CONNECTED_USER_API}/repos`,
+        GET_CONFIG
+    );
+}
+
+function getUserLanguages(userLogin) {
+    /**
+     * Call the github users api by passing a user login to catch its languages.
+     * @param {String} userLogin The github user login to get.
+     * @returns {Promise} The promise giving the users languages search results.
+     */
+    return getUserRepositories(userLogin)
+        .then(repos => [...new Set(repos.filter(({language}) => Boolean(language)).map(({language}) => language))]);
 }
 
 function getCompleteUserInformations(userLogin) {
