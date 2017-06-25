@@ -44,7 +44,7 @@ const Subtitle = styled.h4`
     }
 `;
 
-const Error = () => (
+const PageNotFound = () => (
   <StyledPageNotFound>
       <img src={PageNotFoundImg} alt='Page not found' width='198' height='77' />
       <Title>Page not found</Title>
@@ -52,4 +52,4 @@ const Error = () => (
   </StyledPageNotFound>
 );
 
-export default Error;
+export default PageNotFound;
