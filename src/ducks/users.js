@@ -49,7 +49,7 @@ function fetchUsersInformations(users, isFirstPage = true) {
                 return githubAPI.getCompleteUserInformations(user.login)
                     .then(response => {
                         const userInformations = User.fromGithubOject(response);
-                        return User.fromGithubOject({
+                        return new User({
                             ...userInformations,
                             languages: [...user.languages, ...userInformations.languages]
                         });

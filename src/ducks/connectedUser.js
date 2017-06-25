@@ -78,7 +78,6 @@ const store = (state = INITIAL_STATE, action = null) => {
                 token: action.payload.token,
             };
         case 'RECEIVE_CONNECTED_USER':
-            console.log(action.payload.user);
             return {
                 ...state,
                 ...INITIAL_INDICATORS_STATE,

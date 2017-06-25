@@ -186,7 +186,6 @@ class Filters extends PureComponent {
 
     render() {
         const { geoLocation, languages, activeSearch, disableSearch } = this.props;
-        console.log(geoLocation);
         return (
             <StyledFilters>
                 <Form onSubmit={this.handleSubmit}>
