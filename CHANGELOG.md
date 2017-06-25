@@ -9,6 +9,10 @@
 
 **Changes**:
 - Init the repo
+- Creating custom components.
+- Connecting with github and google geolocation apis.
+- Reducing the data.
+- Connecting the data with react containers.
+- Design.
 
 ---
-    
