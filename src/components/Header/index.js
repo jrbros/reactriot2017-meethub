@@ -9,7 +9,9 @@ const StyledHeader = styled.header`
     flex-direction: column;
     align-items: center;
     height: 125px;
-    padding-top: 1.188rem;
+    padding-top: 1.3rem;
+    position: relative;
+    z-index: 3;
 
     /* Visual */
     background-image: linear-gradient(263deg, ${props => props.theme.blue}, ${props => props.theme.green});
