@@ -47,7 +47,7 @@ function getConnectedUser() {
             .then(response => {
                 const userInformations = User.fromGithubOject(response);
                 dispatch(updateLanguages(userInformations.languages));
-                dispatch(updateGeoLocation(userInformations.location, true));
+                dispatch(updateGeoLocation(userInformations.trueLocation, true));
                 dispatch(disableSearch());
                 dispatch(searchUsers({
                     language: userInformations.languages,

@@ -30,6 +30,7 @@ class User {
         this.publicRepos = this.publicRepos ? this.publicRepos : 0;
         this.blog = this.blog ? this.blog : 'Not Specified';
         this.location = location && location.length > 0 ? location : 'Not Specified';
+        this.trueLocation = this.location  === 'Not Specified' ? '' : this.location;
         this.languages = languages ? [...new Set([...languages])] : [];
     }
 }
