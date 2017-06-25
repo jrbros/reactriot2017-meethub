@@ -9,7 +9,7 @@ import { updateGeoLocation } from '../ducks/geoLocation';
 import { activeSearch, disableSearch } from '../ducks/app';
 
 export default connect(
-    ({geoLocation, languages, routing}) => ({geoLocation, languages, routing}),
+    ({geoLocation, languages, routing}) => ({geoLocation, languages, pathname: routing.location.pathname}),
     dispatch => bindActionCreators({
       searchUsers,
       updateGeoLocation,

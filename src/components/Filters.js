@@ -5,7 +5,6 @@ import SelectPlaces from 'react-select-places';
 import { lighten } from 'polished';
 
 import SelectLanguage from './SelectLanguage';
-import { USER_CONNECTION_URL } from '../apis/github';
 
 const StyledFilters= styled.div`
     /* Box model */
@@ -174,7 +173,9 @@ class Filters extends PureComponent {
     handleSubmit = event => {
         event.preventDefault();
         this.props.disableSearch();
-        this.props.push('meet');
+        if (this.props.pathname !== '/meet') {
+            this.props.push('meet');
+        }
         if (this.canBeSubmitted) {
             this.canBeSubmitted = false;
             return this.props.searchUsers({
@@ -212,7 +213,6 @@ class Filters extends PureComponent {
                     <Button id='SearchButton' disabled={geoLocation.empty && languages.empty}>
                         Search
                     </Button>
-                    <a href={USER_CONNECTION_URL}>Click hereto login!</a>
                 </Form>
             </StyledFilters>
         );

@@ -110,15 +110,13 @@ class SelectLanguage extends Component {
     handleClickOutside = event => {
         const domNode = this.node; // eslint-disable-line react/no-find-dom-node
         if (this.state.open && (!domNode || !domNode.contains(event.target))) {
-            this.setState({
-                open: false
-            });
+            this.setState({open: false});
         }
     }
 
     handleToggle = event => {
         event.preventDefault();
-        this.setState({ open: !this.state.open });
+        this.setState(({open}) => ({open: !open}));
     }
 
     handleToggleLanguage = event => {
