@@ -8,7 +8,7 @@ import { updateGeoLocation } from '../ducks/geoLocation';
 import { activeSearch, disableSearch } from '../ducks/app';
 
 export default connect(
-    ({geoLocation, languages}) => ({geoLocation, languages}),
+    ({geoLocation, languages, app}) => ({geoLocation, languages}),
     dispatch => bindActionCreators({
       searchUsers,
       updateGeoLocation,
