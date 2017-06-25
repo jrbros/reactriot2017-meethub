@@ -129,6 +129,7 @@ class SelectLanguage extends Component {
         const updatedLanguages = Object.entries(newActiveLanguages)
             .filter(([_, active]) => active)
             .map(([language, _]) => language);
+        this.setState({activeLanguages: newActiveLanguages});
         this.props.onChange(updatedLanguages);
     }
 
