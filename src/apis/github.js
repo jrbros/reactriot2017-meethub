@@ -11,7 +11,6 @@ const USERS_API = 'https://api.github.com/users';
 const GET_CONFIG = {
     method: 'GET',
     headers: {
-        'Authorization': null
     }
 };
 
@@ -135,7 +134,8 @@ function getUser(userLogin) {
      * @returns {Promise} The promise giving the users search results.
      */
     return fetch(
-        (userLogin ? `${USERS_API}/${userLogin}` : `${CONNECTED_USER_API}`) + `&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`,
+        (userLogin ? `${USERS_API}/${userLogin}` : `${CONNECTED_USER_API}`) +
+            (!GET_CONFIG.headers.Authorization ? `?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}` : ''),
         GET_CONFIG
     );
 }
@@ -147,7 +147,8 @@ function getUserRepositories(userLogin) {
      * @returns {Promise} The promise giving the users search results.
      */
     return fetch(
-        (userLogin ? `${USERS_API}/${userLogin}/repos` : `${CONNECTED_USER_API}/repos`) + `&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`,
+        (userLogin ? `${USERS_API}/${userLogin}/repos` : `${CONNECTED_USER_API}/repos`) +
+         (!GET_CONFIG.headers.Authorization ? `?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}` : ''),
         GET_CONFIG
     );
 }
