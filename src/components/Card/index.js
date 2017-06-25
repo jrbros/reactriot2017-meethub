@@ -89,9 +89,63 @@ const Item = styled.li`
     }
 `;
 
+const WrapperImg = styled.div`
+    position: relative;
+
+    > a {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    &:hover > a {
+        visibility: visible;
+        opacity: 1;
+    }
+`;
+
+const SayHello = styled.a`
+    /* Box model */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 6px;
+    z-index: 1;
+
+    /* Typo */
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.5rem;
+
+    &:before {
+        /* Box model */
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
+
+        /* Visual */
+        background-image: linear-gradient(263deg, #00c9ff, #92fe9d);
+        transition: all .1s linear;
+        opacity: .9;
+    }
+`;
+
+
 const Card = ({avatarUrl, name, htmlUrl, login, location, languages}) => (
   <StyledCard>
-      <img src={avatarUrl} alt={name} width='230' height='230' />
+      <WrapperImg>
+          <img src={avatarUrl} alt={name} width='230' height='230' />
+          <SayHello href='mailto:'>Say hello!</SayHello>
+      </WrapperImg>
       <Content>
           <Title>
               <Link href={htmlUrl} target="_blank">{name}</Link>
