@@ -16,7 +16,7 @@ It was realized during the [ReactRiot 2017](https://www.reactriot.com/) competit
 
 A team composed by 2 old react warriors with a third little young baby comes to make a pretty react application, fast, and easy guys.
 
-Our philosophy is to make our own design (without using bootstrap-style one) and to work in a agile style with small releases realized quickly.
+Our philosophy is to make our own design (without using bootstrap-style css) and to work in agility style with small releases realized quickly and frequently.
 
 ## Installation
 
