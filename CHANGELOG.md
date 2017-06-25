@@ -3,6 +3,17 @@
 
 ## v0.3.0
 
+**Author**: Guillaume Mousnier.
+
+**Type**: Hotfix
+
+**Changes**:
+- Updating some text.
+
+---
+
+## v0.3.0
+
 **Author**: Guillaume Mousnier, Jeremy Raffin, Jerome Raffin.
 
 **Type**: Feature
