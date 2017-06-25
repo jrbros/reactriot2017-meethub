@@ -51,7 +51,7 @@ function fetchUsersInformations(users, isFirstPage = true) {
                         const userInformations = User.fromGithubOject(response);
                         return new User({
                             ...userInformations,
-                            languages: [...user.languages, ...userInformations.languages]
+                            languages: userInformations.languages
                         });
                     });
             }))
