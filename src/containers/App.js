@@ -6,6 +6,9 @@ import App from '../components/App';
 import { askForGeoLocation } from '../ducks/geoLocation';
 
 export default withRouter(connect(
-    ({app}) => ({searchIsActive: app.searchIsActive}),
+    ({app, routing}) => ({
+        searchIsActive: app.searchIsActive,
+        pathname: routing.location.pathname
+    }),
     dispatch => bindActionCreators({askForGeoLocation}, dispatch)
 )(App));
