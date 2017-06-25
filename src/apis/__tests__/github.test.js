@@ -6,12 +6,12 @@ import githubAPI, {
 
 it('can build a query from a simple parameter object', () => {
     const result = buildSearchQuery({language: 'python', location: 'paris'});
-    expect(result).toBe('language%3Apython+location%3Aparis&page=1');
+    expect(result).toBe('language%3Apython+location%3Aparis+type:user&page=1');
 });
 
 it('can build a query from a parameter object with arrays', () => {
     const result = buildSearchQuery({language: ['python', 'scala'], location: 'paris'});
-    expect(result).toBe('language%3Apython%2Blanguage%3Ascala+location%3Aparis&page=1');
+    expect(result).toBe('language%3Apython%2Blanguage%3Ascala+location%3Aparis+type:user&page=1');
 });
 
 it('can handle an error', () => {
