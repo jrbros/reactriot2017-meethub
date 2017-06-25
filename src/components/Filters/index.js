@@ -5,6 +5,7 @@ import SelectPlaces from 'react-select-places';
 import { lighten } from 'polished';
 
 import SelectLanguage from '../SelectLanguage';
+import { USER_CONNECTION_URL } from '../../apis/github';
 
 const StyledFilters= styled.div`
     /* Box model */
@@ -210,9 +211,7 @@ class Filters extends PureComponent {
                     <Button id='SearchButton' disabled={geoLocation.empty && languages.empty}>
                         Search
                     </Button>
-                    <a
-                        target="_blank"
-                        href="https://github.com/login/oauth/authorize?client_id=13c39cc405f7420477fe">Click hereto login!</a>
+                    <a href={USER_CONNECTION_URL}>Click hereto login!</a>
                 </Form>
             </StyledFilters>
         );

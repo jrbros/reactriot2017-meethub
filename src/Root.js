@@ -17,7 +17,7 @@ export default () => (
     <Provider store={store}>
         <ThemeProvider theme={theme}>
             <HashRouter history={history}>
-                <App>
+                <App history={history}>
                     <Switch>
                         <Route exact path='/' component={Meet} />
                         <Route render={() => <div>Not found</div>} />

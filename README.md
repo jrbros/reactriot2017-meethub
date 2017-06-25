@@ -6,7 +6,7 @@ Meethub is a static web application designed to find and meet tech peoples, to d
 
 ## Description
 
-Meethub is an application (static) listing techs near from your current position (or a position you have chosen) and matching with your languages préferences.
+Meethub is an application (static) listing techs near from your current position (or a position you have chosen) and matching with your languages preferences.
 
 It uses github api (search/users and users) to match the users, and use both google geoloc api and google places to localize you.
 
@@ -25,6 +25,7 @@ Launch the application:  `npm start` or build it: `npm build`
 ## Dependencies
 
 My thanks to these libraries authors, you make our life easier during the contest:
+
 - create-react-app
 - @storybook/react
 - isomorphic-fetch
@@ -36,6 +37,7 @@ My thanks to these libraries authors, you make our life easier during the contes
 - react-dom
 - react-redux
 - react-router
+- react-router-dom
 - react-router-redux
 - react-select-places
 - react-virtualized-select

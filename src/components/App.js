@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import Header from './Header';
 import Filters from '../containers/Filters';
+import { checkIfCurrentUrlContainsCodeParameter } from '../apis/github';
 
 class App extends Component {
 
-    componentDidMount() {
+    componentWillMount() {
         this.props.askForGeoLocation();
+        if (checkIfCurrentUrlContainsCodeParameter(window)) {
+            getCodeParameterInCurrentUrl(window);
+        }
     }
 
     render() {
