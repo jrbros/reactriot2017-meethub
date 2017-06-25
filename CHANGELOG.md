@@ -1,7 +1,18 @@
 
+## v0.4.0
+
+**Author**: Jérémy Raffin.
+
+**Type**: Feature
+
+**Changes**:
+- Add background
+- Add custom widget
+- Add back to top
+
 ---
 
-## v0.3.0
+## v0.3.1
 
 **Author**: Guillaume Mousnier.
 
