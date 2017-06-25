@@ -26,19 +26,44 @@ const Item = styled.li`
 
 const Button = LoaderHOC(styled.button`
     /* Box model */
-    height: 60px;
-
-    /* Typo */
-    color: #fff;
-    font-size: 2rem;
-    text-align: center;
+    height: 80px;
 
     /* Visual */
     outline: none;
     cursor: pointer;
     border: none;
     background-image: linear-gradient(263deg, #00c9ff, #92fe9d);
+
+    > span {
+        /* Box model */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
 `);
+
+const Icon = styled.div`
+    /* Box model */
+    display: flex;
+    justify-content: center;
+    height: 3rem;
+    width: 3rem;
+
+    /* Typo */
+    font-size: 2rem;
+
+    /* Visual */
+    border: 2px solid #fff;
+    border-radius: 50%;
+    color: #fff;
+
+    > span {
+        position: relative;
+        top: 2px;
+    }
+`;
 
 export class Meet extends PureComponent {
 
@@ -71,7 +96,9 @@ export class Meet extends PureComponent {
                         <Button
                           onClick={this.handleIncrementPage}
                           loading={loadingIncrement}>
-                          +
+                              <span>
+                                  <Icon><span>+</span></Icon>
+                              </span>
                         </Button> : null
                 }
             </Wrapper>
