@@ -4,30 +4,11 @@ import styled from 'styled-components';
 import Card from './Card';
 import LoaderHOC from '../components/Loader';
 
-
 const Wrapper = styled.div`
     /* Box model */
     display: flex;
     flex-direction: column;
     position: relative;
-    min-height: 100%;
-
-    &:before {
-        /* Box model */
-        content: '';
-        top: -30px;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        position: absolute;
-        z-index: 0;
-
-        /* Visual */
-        visibility: ${props => props.searchIsActive ? 'visible' : 'hidden'};
-        opacity: ${props => props.searchIsActive ? '1' : '0'};
-        background-color: rgba(0, 0, 0, .6);
-        transition:  all .2s linear;
-    }
 `;
 
 const List = styled.ul`
@@ -70,9 +51,9 @@ export class Meet extends PureComponent {
     }
 
     render() {
-        const { users: { usersInformations, loadingIncrement, empty}, searchIsActive } = this.props;
+        const { users: { usersInformations, loadingIncrement, empty},  } = this.props;
         return (
-            <Wrapper searchIsActive={searchIsActive}>
+            <Wrapper>
                 <List>
                     {
                         usersInformations.map((user, index) => (
