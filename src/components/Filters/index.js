@@ -174,7 +174,6 @@ class Filters extends PureComponent {
     handleSubmit = event => {
         event.preventDefault();
         this.props.disableSearch();
-        console.log(this.props);
         if (this.props.pathname !== '/meet') {
             this.props.push('meet');
         }

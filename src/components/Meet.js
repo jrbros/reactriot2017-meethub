@@ -76,7 +76,7 @@ export class Meet extends PureComponent {
     }
 
     render() {
-        const { users: { usersInformations, loadingIncrement, empty },  } = this.props;
+        const { users: { usersInformations, loadingIncrement, empty, page },  } = this.props;
         return (
             <Wrapper>
                 <List>
@@ -86,13 +86,13 @@ export class Meet extends PureComponent {
                                 <Card
                                     {...user}
                                     languages={user.languages.slice(0, 6)}
-                                    />
+                                  />
                             </Item>
                         ))
                     }
                 </List>
                 {
-                    !empty && usersInformations % 30 ?
+                    !empty && usersInformations.length === (30 * page) ?
                         <Button
                           onClick={this.handleIncrementPage}
                           loading={loadingIncrement}>
