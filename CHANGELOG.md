@@ -1,4 +1,15 @@
 
+## v0.4.1
+
+**Author**: Guillaume Mousner.
+
+**Type**: Hotfix
+
+**Changes**:
+- Increase performances
+- Correct some strange behaviours
+
+---
 ## v0.4.0
 
 **Author**: Jérémy Raffin.
