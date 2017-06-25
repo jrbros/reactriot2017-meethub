@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import LANGUAGES_COLORS from '../../constants/languagesColors';
+
 const StyledCard = styled.div`
     /* Box model */
     display: flex;
@@ -41,7 +43,7 @@ const Link = styled.a`
 
 const Copy = styled.p`
     /* Box model */
-    margin: 0 0 1.2rem;
+    margin: 0 0 .8rem;
 
     /* Typography */
     font-size: 1rem;
@@ -54,11 +56,12 @@ const Copy = styled.p`
 const List = styled.ul `
     /* Box model */
     margin: 0;
-    padding: 0 0 .6rem;
+    padding: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    height: 60px;
+    align-items: center;
+    height: 70px;
     overflow: hidden;
 
     /* Visual */
@@ -70,12 +73,11 @@ const Item = styled.li`
     display: flex;
     align-items: center;
     margin-bottom: .6rem;
-    padding: 0 .8rem;
-    height: 22px;
+    padding: .2rem .8rem;
 
     /* Visual */
     color: #ffffff;
-    background-color: ${props => props.theme.yellow};
+    background-color: ${props => props.theme.gray};
     border-radius: 3px;
 
     /* Typography */
@@ -97,7 +99,10 @@ const Card = ({avatarUrl, name, htmlUrl, login, location, languages}) => (
           <Copy>{location}</Copy>
           <List>
             {
-              languages.map((language, index) => (<Item key={index}>{language}</Item>))
+              languages.map((language, index) => (<Item
+                  key={index}
+                  style={{backgroundColor: LANGUAGES_COLORS[language] }}
+                  >{language}</Item>))
             }
         </List>
     </Content>
