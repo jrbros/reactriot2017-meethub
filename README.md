@@ -1,10 +1,12 @@
 # Meethub
 
-Meethub is a web application designed to find and meet tech peoples, to drink a beer or maybe more...
+Static webpage: [https://hackbit.github.io/reactriot2017-meethub/](https://hackbit.github.io/reactriot2017-meethub/)
+
+Meethub is a static web application designed to find and meet tech peoples, to drink a beer or maybe more...
 
 ## Description
 
-Meethub is an application listing techs near from your current position (or a position you have chosen) and matching with your languages préferences.
+Meethub is an application (static) listing techs near from your current position (or a position you have chosen) and matching with your languages préferences.
 
 It uses github api (search/users and users) to match the users, and use both google geoloc api and google places to localize you.
 
@@ -40,5 +42,3 @@ My thanks to these libraries authors, you make our life easier during the contes
 - redux
 - redux-thunk
 - styled-components
-
-## The team

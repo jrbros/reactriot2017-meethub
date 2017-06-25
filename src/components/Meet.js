@@ -10,7 +10,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
-    height: 100%;
+    min-height: 100%;
 
     &:before {
         /* Box model */
@@ -44,6 +44,19 @@ const Item = styled.li`
 `;
 
 const Button = LoaderHOC(styled.button`
+    /* Box model */
+    height: 60px;
+
+    /* Typo */
+    color: #fff;
+    font-size: 2rem;
+    text-align: center;
+
+    /* Visual */
+    outline: none;
+    cursor: pointer;
+    border: none;
+    background-image: linear-gradient(263deg, #00c9ff, #92fe9d);
 `);
 
 export class Meet extends PureComponent {

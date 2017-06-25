@@ -3,14 +3,14 @@ import { storiesOf } from '@storybook/react';
 import { ThemeProvider } from 'styled-components';
 
 import theme from '../../src/theme';
-import SelectLanguage from '../../src/components/SelectLanguage';
+import EmptyState from '../../src/components/EmptyState/EmptyState';
 
-storiesOf('Select language', module)
+storiesOf('EmptyState', module)
   .addDecorator(getStory => (
     <ThemeProvider theme={theme}>
       {getStory()}
     </ThemeProvider>
   ))
   .add('default', () => (
-    <SelectLanguage />
+    <EmptyState />
   ));

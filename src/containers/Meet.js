@@ -4,7 +4,9 @@ import { bindActionCreators } from 'redux';
 import Meet from '../components/Meet';
 import LoaderHOC from '../components/Loader';
 import ErrorHOC from '../components/Error';
+import EmptyStateHOC from '../components/EmptyState';
 import loaderConnector from '../connectors/loader';
+import usersConnector from '../connectors/users';
 import errorConnector from '../connectors/error';
 import { searchUsers } from '../ducks/users';
 
@@ -15,7 +17,8 @@ const MeetContainer = connect(
 )(Meet);
 
 const container = loaderConnector(LoaderHOC(
-  errorConnector(ErrorHOC(MeetContainer))
-));
+  errorConnector(ErrorHOC(
+  usersConnector(EmptyStateHOC(MeetContainer))
+))));
 
 export default container;
