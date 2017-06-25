@@ -24,13 +24,13 @@ class User {
         this.login = login
         this.name = name ? name : login;
         this.htmlUrl = htmlUrl;
-        this.company = this.company ? this.company : 'Not Specified';
-        this.followers = this.followers ? this.followers : 0;
-        this.email = this.email ? this.email : null;
-        this.publicRepos = this.publicRepos ? this.publicRepos : 0;
-        this.blog = this.blog ? this.blog : 'Not Specified';
+        this.company = company ? company : 'Not Specified';
+        this.followers = followers ? followers : 0;
+        this.email = email ? email : null;
+        this.publicRepos = publicRepos ? publicRepos : 0;
+        this.blog = blog ? blog : 'Not Specified';
         this.location = location && location.length > 0 ? location : 'Not Specified';
-        this.trueLocation = this.location  === 'Not Specified' ? '' : this.location;
+        this.trueLocation = location  === 'Not Specified' ? '' : this.location;
         this.languages = languages ? [...new Set([...languages])] : [];
     }
 }

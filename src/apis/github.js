@@ -141,18 +141,6 @@ function getUser(userLogin) {
     );
 }
 
-function getUserGists(userLogin) {
-    /**
-     * Call the github users api by passing a user login to catch its repositories.
-     * @param {String} userLogin The github user login to get.
-     * @returns {Promise} The promise giving the users search results.
-     */
-    return fetch(
-        userLogin ? `${USERS_API}/${userLogin}/repos` : `${CONNECTED_USER_API}/repos`,
-        GET_CONFIG
-    );
-}
-
 function getUserRepositories(userLogin) {
     /**
      * Call the github users api by passing a user login to catch its repositories.

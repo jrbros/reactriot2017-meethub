@@ -140,11 +140,13 @@ const SayHello = styled.a`
 `;
 
 
-const Card = ({avatarUrl, name, htmlUrl, login, location, languages}) => (
+const Card = ({avatarUrl, name, htmlUrl, login, location, languages, email}) => (
   <StyledCard>
       <WrapperImg>
           <img src={avatarUrl} alt={name} width='230' height='230' />
-          <SayHello href='mailto:'>Say hello!</SayHello>
+          {
+              email ? <SayHello href={`mailto:${email}`}>Say hello!</SayHello> : null
+          }
       </WrapperImg>
       <Content>
           <Title>
