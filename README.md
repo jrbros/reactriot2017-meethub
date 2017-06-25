@@ -42,5 +42,3 @@ My thanks to these libraries authors, you make our life easier during the contes
 - redux
 - redux-thunk
 - styled-components
-
-## The team
