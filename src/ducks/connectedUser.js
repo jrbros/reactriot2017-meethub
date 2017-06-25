@@ -1,5 +1,6 @@
 import githubAPI, { updateAPIToken, parseConnectedUserToken } from '../apis/github';
 import { updateLanguages } from './languages';
+import { updateGeoLocation } from './geoLocation';
 import User from '../types/user';
 
 const RECEIVE_CONNECTED_USER_TOKEN = 'RECEIVE_CONNECTED_USER_TOKEN';
@@ -35,6 +36,7 @@ function getConnectedUser() {
             .then(response => {
                 const userInformations = User.fromGithubOject(response);
                 dispatch(updateLanguages(userInformations.languages))
+                dispatch(updateGeoLocation(userInformations.location, true))
                 return dispatch(receiveConnectedUser(userInformations))
             })
             .catch(error => dispatch(failToReceiveConnectedUser(githubAPI.handleErrorMessage(error))));

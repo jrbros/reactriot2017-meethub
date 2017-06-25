@@ -24,8 +24,9 @@ const POST_CONFIG = {
 const ERROR_HANDLER = {
     '400': 'Something is going wrong with the github API. Please try again later...',
     '404': 'Something is going wrong with the github API. Please try again later...',
-    '403': 'Ups! It\'s seems you have exceeed github API limitations. Please try again later...',
+    '403': 'Ups! It\'s seems you have exceeed github API limitations. Please login you...',
     '401': 'Ups! It\'s seems your github credentials are wrong...',
+    '422': 'Ups! It\'s seems your filter contains strange things...',
     null: 'An unhandled error occured while calling github API...'
 };
 

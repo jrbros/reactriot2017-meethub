@@ -153,7 +153,7 @@ class Filters extends PureComponent {
             JSON.stringify(this.props.languages.selectedLanguages) !==
             JSON.stringify(nextProps.languages.selectedLanguages)
         );
-        return isNotEmpty && (locationIsNew || languagesAreNew);
+        return isNotEmpty && (this.canBeSubmitted || locationIsNew || languagesAreNew);
     }
 
     handleChangeLanguage = languages => {
@@ -186,6 +186,7 @@ class Filters extends PureComponent {
 
     render() {
         const { geoLocation, languages, activeSearch, disableSearch } = this.props;
+        console.log(geoLocation);
         return (
             <StyledFilters>
                 <Form onSubmit={this.handleSubmit}>
@@ -195,7 +196,7 @@ class Filters extends PureComponent {
                         ref={node => (this.node = node)}
                     >
                         <StyledSelectPlaces
-                          value={{placeId: geoLocation.placeId}}
+                          value={geoLocation.placeId ? {placeId: geoLocation.placeId} : geoLocation.location[0]}
                           onChange={this.handleChangeLocation}
                           clearable={false}
                           placeholder='Select city...'

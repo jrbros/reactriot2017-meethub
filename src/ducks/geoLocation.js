@@ -4,10 +4,12 @@ const UPDATE_GEO_LOCATION = 'UPDATE_GEO_LOCATION';
 const REFUSE_GEO_LOCATION = 'REFUSE_GEO_LOCATION';
 const FAIL_GEO_LOCATION = 'FAIL_GEO_LOCATION';
 
-function updateGeoLocation(location) {
+function updateGeoLocation(location, fromText=false) {
     return {
         type: UPDATE_GEO_LOCATION,
-        payload: {placeId: location.place_id, location: parseLocation(location)}
+        payload: fromText ?
+            {location: [location]} :
+            {placeId: location.place_id, location: parseLocation(location)}
     };
 }
 
@@ -63,7 +65,7 @@ const store = (state = INITIAL_STATE, action = null) => {
             };
         case 'FAIL_GEO_LOCATION':
             return {
-                ...INITIAL_STATE,
+                ...state,
                 error: action.payload.error
             };
         default:
