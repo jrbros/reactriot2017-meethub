@@ -1,12 +1,23 @@
+import { push } from 'react-router-redux';
+
 import githubAPI, { updateAPIToken, parseConnectedUserToken } from '../apis/github';
 import { updateLanguages } from './languages';
 import { updateGeoLocation } from './geoLocation';
+import { searchUsers } from './users';
+import { disableSearch } from './app';
 import User from '../types/user';
 
+const WAIT_CONNECTED_USER = 'WAIT_CONNECTED_USER';
 const RECEIVE_CONNECTED_USER_TOKEN = 'RECEIVE_CONNECTED_USER_TOKEN';
 const RECEIVE_CONNECTED_USER = 'RECEIVE_CONNECTED_USER';
 const FAIL_TO_RECEIVE_CONNECTED_USER = 'FAIL_TO_RECEIVE_CONNECTED_USER';
 
+
+function waitConnectedUser() {
+    return {
+        type: WAIT_CONNECTED_USER,
+    };
+}
 
 function receiveConnectedUserToken(token) {
     if (token) updateAPIToken(token);
@@ -35,8 +46,14 @@ function getConnectedUser() {
         return githubAPI.getCompleteUserInformations()
             .then(response => {
                 const userInformations = User.fromGithubOject(response);
-                dispatch(updateLanguages(userInformations.languages))
-                dispatch(updateGeoLocation(userInformations.location, true))
+                dispatch(updateLanguages(userInformations.languages));
+                dispatch(updateGeoLocation(userInformations.location, true));
+                dispatch(disableSearch());
+                dispatch(searchUsers({
+                    language: userInformations.languages,
+                    location: userInformations.location
+                }));
+                dispatch(push('meet'));
                 return dispatch(receiveConnectedUser(userInformations))
             })
             .catch(error => dispatch(failToReceiveConnectedUser(githubAPI.handleErrorMessage(error))));
@@ -45,6 +62,7 @@ function getConnectedUser() {
 
 function getConnectedUserToken(githubCode) {
     return dispatch => {
+        dispatch(waitConnectedUser());
         return githubAPI.getConnectedUserToken(githubCode)
             .then(response => {
                 dispatch(receiveConnectedUserToken(parseConnectedUserToken(response)));
@@ -74,7 +92,6 @@ const store = (state = INITIAL_STATE, action = null) => {
         case 'RECEIVE_CONNECTED_USER_TOKEN':
             return {
                 ...state,
-                ...INITIAL_INDICATORS_STATE,
                 token: action.payload.token,
             };
         case 'RECEIVE_CONNECTED_USER':
@@ -83,6 +100,13 @@ const store = (state = INITIAL_STATE, action = null) => {
                 ...INITIAL_INDICATORS_STATE,
                 userInformation: action.payload.user,
                 empty: false
+            };
+        case 'WAIT_CONNECTED_USER':
+            return {
+                ...state,
+                ...INITIAL_INDICATORS_STATE,
+                loading: true,
+                empty: true
             };
         case 'FAIL_TO_RECEIVE_CONNECTED_USER':
             return {
