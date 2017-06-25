@@ -8,7 +8,7 @@ const Wrapper = styled.div `
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 5rem;
+    margin-top: 8rem;
 `;
 
 const EmptyStateHOC = (WrappedComponent) =>

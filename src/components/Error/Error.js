@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import EmptyImg from './empty@2x.png';
+import ErrorImg from './error@2x.png';
 
-const StyledEmptyState = styled.div`
+const StyledError = styled.div`
     /* Box model */
     display: flex;
     flex-direction: column;
@@ -13,7 +13,7 @@ const StyledEmptyState = styled.div`
 
 const Title = styled.h3`
     /* Box model */
-    margin: .4rem 0 0;
+    margin: .8rem 0 0;
 
     /* Typography */
     font-size: 2.25rem;
@@ -36,12 +36,12 @@ const Subtitle = styled.h4`
     color: ${props => props.theme.gray};
 `;
 
-const EmptyState = () => (
-  <StyledEmptyState>
-      <img src={EmptyImg} alt='No results found' width='194' height='96' />
-      <Title>No results found</Title>
-      <Subtitle>Please update your search and try again</Subtitle>
-  </StyledEmptyState>
+const Error = ({children}) => (
+  <StyledError>
+      <img src={ErrorImg} alt='Error' width='148' height='123' />
+      <Title>We have a problem</Title>
+      <Subtitle>{children}</Subtitle>
+  </StyledError>
 );
 
-export default EmptyState;
+export default Error;

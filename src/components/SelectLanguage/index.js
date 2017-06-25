@@ -64,7 +64,6 @@ const Option = styled.li`
     margin-bottom: .5625rem;
 
     /* Visual */
-    cursor: pointer;
     border: 1px solid ${props => props.theme.gray};
     border-radius: 3px;
 `
@@ -81,6 +80,7 @@ const Label = styled.label`
     top: 0;
     bottom: 0;
     z-index: 1;
+    cursor: pointer;
 `;
 
 class SelectLanguage extends Component {
