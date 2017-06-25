@@ -5,6 +5,8 @@ const Wrapper = styled.div `
     display: flex;
     justify-content: center;
     background-color: #ffffff;
+    position: relative;
+    z-index: 3;
 `;
 
 const Copy = styled.p `

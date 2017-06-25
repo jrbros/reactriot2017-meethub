@@ -14,7 +14,9 @@ const StyledHeader = styled.header`
     z-index: 3;
 
     /* Visual */
-    background-image: linear-gradient(263deg, ${props => props.theme.blue}, ${props => props.theme.green});
+    background-image: ${props => props.pathname === '/' ?
+    'none' :
+    'linear-gradient(263deg, #00c9ff, #92fe9d)'};
 `;
 
 const Logo = styled.h1`
@@ -57,8 +59,8 @@ const Widget = styled.a`
     }
 `;
 
-const Header = () => (
-  <StyledHeader>
+const Header = ({ pathname }) => (
+  <StyledHeader pathname={pathname}>
       <Widget href="https://www.reactriot.com/entries/337-reacttakeiteasy/vote">
         Our entry for <img height="30" src="https://rumblex-reactriot1.s3.amazonaws.com/images/widget-logo.png" alt="Widget logo" />
         Vote for us
