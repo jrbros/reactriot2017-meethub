@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Header from './Header';
 import Filters from '../containers/Filters';
+import { checkIfCurrentUrlContainsCodeParameter, extractCodeParameterFromCurrentUrl } from '../apis/github';
 
 
 const Main = styled.main`
@@ -28,8 +29,11 @@ const Main = styled.main`
 
 class App extends Component {
 
-    componentDidMount() {
+    componentWillMount() {
         this.props.askForGeoLocation();
+        if (checkIfCurrentUrlContainsCodeParameter(window)) {
+            this.props.getConnectedUserToken(extractCodeParameterFromCurrentUrl(window));
+        }
     }
 
     render() {

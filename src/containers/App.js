@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 
 import App from '../components/App';
 import { askForGeoLocation } from '../ducks/geoLocation';
+import { getConnectedUserToken } from '../ducks/connectedUser';
 
 export default connect(
-    ({app}) => ({searchIsActive: app.searchIsActive}),
-    dispatch => bindActionCreators({askForGeoLocation}, dispatch)
+    ({app, routing}) => ({searchIsActive: app.searchIsActive, routing}),
+    dispatch => bindActionCreators({askForGeoLocation, getConnectedUserToken}, dispatch)
 )(App);

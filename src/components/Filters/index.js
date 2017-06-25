@@ -5,6 +5,7 @@ import SelectPlaces from 'react-select-places';
 import { lighten } from 'polished';
 
 import SelectLanguage from '../SelectLanguage';
+import { USER_CONNECTION_URL } from '../../apis/github';
 
 const StyledFilters= styled.div`
     /* Box model */
@@ -152,12 +153,11 @@ class Filters extends PureComponent {
             JSON.stringify(this.props.languages.selectedLanguages) !==
             JSON.stringify(nextProps.languages.selectedLanguages)
         );
-        return isNotEmpty && (locationIsNew || languagesAreNew);
+        return isNotEmpty && (this.canBeSubmitted || locationIsNew || languagesAreNew);
     }
 
     handleChangeLanguage = languages => {
-        const activeLanguages = languages.filter(language => language.active).map(({name}) => name);
-        this.props.updateLanguages(activeLanguages);
+        this.props.updateLanguages(languages);
     }
 
     handleChangeLocation = location => {
@@ -194,7 +194,7 @@ class Filters extends PureComponent {
                         ref={node => (this.node = node)}
                     >
                         <StyledSelectPlaces
-                          value={{placeId: geoLocation.placeId}}
+                          value={geoLocation.placeId ? {placeId: geoLocation.placeId} : geoLocation.location[0]}
                           onChange={this.handleChangeLocation}
                           clearable={false}
                           placeholder='Select city...'
@@ -203,6 +203,7 @@ class Filters extends PureComponent {
                             }}
                         />
                         <SelectLanguage
+                            languages={languages.selectedLanguages}
                             onChange={this.handleChangeLanguage}
                             disableSearch={disableSearch}
                         />
@@ -210,6 +211,7 @@ class Filters extends PureComponent {
                     <Button id='SearchButton' disabled={geoLocation.empty && languages.empty}>
                         Search
                     </Button>
+                    <a href={USER_CONNECTION_URL}>Click hereto login!</a>
                 </Form>
             </StyledFilters>
         );
