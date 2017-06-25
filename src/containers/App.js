@@ -6,6 +6,6 @@ import { askForGeoLocation } from '../ducks/geoLocation';
 import { getConnectedUserToken } from '../ducks/connectedUser';
 
 export default connect(
-    ({routing}) => ({routing}),
+    ({app, routing}) => ({searchIsActive: app.searchIsActive, routing}),
     dispatch => bindActionCreators({askForGeoLocation, getConnectedUserToken}, dispatch)
 )(App);

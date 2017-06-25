@@ -7,6 +7,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import App from './containers/App';
 import Meet from './containers/Meet';
+import PageNotFound from './components/PageNotFound';
 
 import store from './store';
 import theme from './theme';
@@ -20,7 +21,7 @@ export default () => (
                 <App history={history}>
                     <Switch>
                         <Route exact path='/' component={Meet} />
-                        <Route render={() => <div>Not found</div>} />
+                        <Route component={PageNotFound} />
                     </Switch>
                 </App>
             </HashRouter>
