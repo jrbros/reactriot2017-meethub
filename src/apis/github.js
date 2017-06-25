@@ -4,15 +4,21 @@ const API_TOKEN = '9589199d5bc89df0ed60621b0f43107f8e1be333';
 const CLIENT_ID = '6651283c4549f4d595d4';
 const CLIENT_SECRET = 'd81ef3645599a8b0807bb3cf1912dc963a4eb20c';
 const USER_CONNECTION_URL = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`;
-const USER_TOKEN_API = `https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token`
+const CONNECTED_USER_TOKEN_API = `https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token`;
+const CONNECTED_USER_API = `https://api.github.com/user`;
 const SEARCH_USERS_API = 'https://api.github.com/search/users';
 const USERS_API = 'https://api.github.com/users';
 
-const MAIN_CONFIG = {
+const GET_CONFIG = {
     method: 'GET',
     headers: {
         'Authorization': `token ${API_TOKEN}`
     }
+};
+
+const POST_CONFIG = {
+    method: 'POST',
+    mode: 'cors'
 };
 
 const ERROR_HANDLER = {
@@ -24,6 +30,15 @@ const ERROR_HANDLER = {
 };
 
 const CODE_PARAMETER_REGEXP = /\?code=(.*?)#/;
+const CONNECTED_USER_TOKEN_REGEXP = /access_token=(.*?)&scope/;
+
+function updateAPIToken(token) {
+    /**
+     * Update the api token used by an other. Crapy function.
+     * @param {String} token The new token to suscribe.
+     */
+     GET_CONFIG.headers.Authorization = `token ${token}`;
+}
 
 function checkIfCurrentUrlContainsCodeParameter(window) {
     /**
@@ -44,13 +59,25 @@ function extractCodeParameterFromCurrentUrl(window) {
      * @param {Object} window The current window object.
      * @returns {String} The code parameter.
      */
-     try {
-         return CODE_PARAMETER_REGEXP.exec(window.location.href)[1];
-     } catch (e) {
-         return '';
-     }
+    try {
+     return CODE_PARAMETER_REGEXP.exec(window.location.href)[1];
+    } catch (e) {
+     return '';
+    }
 }
 
+function parseConnectedUserToken(token) {
+    /**
+     * Parse the github return containing connected user token.
+     * @param {String} token The non-parsed token.
+     * @returns {String} The token.
+     */
+    try {
+        return CONNECTED_USER_TOKEN_REGEXP.exec(token)[1];
+    } catch (e) {
+        return null;
+    }
+}
 
 function buildSearchQuery(searchParameters, page=1) {
     /**
@@ -81,11 +108,8 @@ function getConnectedUserToken(githubCode) {
      * @returns {Promise} The promise giving the user token results.
      */
     return fetch(
-        `${USER_TOKEN_API}?utf8=✓&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${githubCode}`,
-        {
-            method: 'POST',
-            mode: 'cors',
-        },
+        `${CONNECTED_USER_TOKEN_API}?utf8=✓&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${githubCode}`,
+        POST_CONFIG,
         false
     );
 }
@@ -98,7 +122,7 @@ function searchUsers(searchQuery) {
      */
     return fetch(
         `${SEARCH_USERS_API}?utf8=✓&q=${searchQuery}`,
-        MAIN_CONFIG
+        GET_CONFIG
     );
 }
 
@@ -109,8 +133,8 @@ function getUser(userLogin) {
      * @returns {Promise} The promise giving the users search results.
      */
     return fetch(
-        `${USERS_API}/${userLogin}`,
-        MAIN_CONFIG
+        userLogin ? `${USERS_API}/${userLogin}` : `${CONNECTED_USER_API}`,
+        GET_CONFIG
     );
 }
 
@@ -121,9 +145,23 @@ function getUserLanguages(userLogin) {
      * @returns {Promise} The promise giving the users search results.
      */
     return fetch(
-        `${USERS_API}/${userLogin}/repos`,
-        MAIN_CONFIG
+        userLogin ? `${USERS_API}/${userLogin}/repos` : `${CONNECTED_USER_API}/repos`,
+        GET_CONFIG
     ).then(repos => [...new Set(repos.filter(({language}) => Boolean(language)).map(({language}) => language))]);
+}
+
+function getCompleteUserInformations(userLogin) {
+    /**
+     * Call both the github user api and user/repo api by passing a user login.
+     * @param {String} userLogin The github user login to get.
+     * @returns {Promise} The promise giving the user complete result.
+     */
+
+    return Promise.all([getUser(userLogin), getUserLanguages(userLogin)])
+        .then(([userInformation, userLanguages]) => ({
+                ...userInformation,
+                languages: userLanguages
+        }));
 }
 
 function handleErrorMessage(error) {
@@ -134,14 +172,18 @@ function handleErrorMessage(error) {
 
 export {
     USER_CONNECTION_URL,
+    GET_CONFIG,
     checkIfCurrentUrlContainsCodeParameter,
     extractCodeParameterFromCurrentUrl,
-    buildSearchQuery
+    buildSearchQuery,
+    parseConnectedUserToken,
+    updateAPIToken
 };
 export default {
     searchUsers,
     getConnectedUserToken,
     getUser,
     getUserLanguages,
+    getCompleteUserInformations,
     handleErrorMessage
 }

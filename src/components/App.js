@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import Header from './Header';
 import Filters from '../containers/Filters';
-import githubAPI, {
-    checkIfCurrentUrlContainsCodeParameter, extractCodeParameterFromCurrentUrl
-} from '../apis/github';
+import { checkIfCurrentUrlContainsCodeParameter, extractCodeParameterFromCurrentUrl } from '../apis/github';
 
 class App extends Component {
 
     componentWillMount() {
         this.props.askForGeoLocation();
         if (checkIfCurrentUrlContainsCodeParameter(window)) {
-            githubAPI.getConnectedUserToken(extractCodeParameterFromCurrentUrl(window))
-                .then(e => console.log(e))
+            this.props.getConnectedUserToken(extractCodeParameterFromCurrentUrl(window));
         }
     }
 

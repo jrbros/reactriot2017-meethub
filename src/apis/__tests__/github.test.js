@@ -1,5 +1,6 @@
 import githubAPI, {
-    buildSearchQuery, checkIfCurrentUrlContainsCodeParameter, extractCodeParameterFromCurrentUrl
+    buildSearchQuery, checkIfCurrentUrlContainsCodeParameter,
+    extractCodeParameterFromCurrentUrl, parseConnectedUserToken
 } from '../github';
 
 it('can build a query from a simple parameter object', () => {
@@ -45,4 +46,9 @@ it('can check if the github code parameter is not present in wrong window object
 it('can extract github code parameter from current url', () => {
     const result = extractCodeParameterFromCurrentUrl({location: {href: 'http://nanana/?code=something#/'}});
     expect(result).toBe('something');
+});
+
+it('can parse connected user token obtained by github', () => {
+    const result = parseConnectedUserToken('access_token=72de98c05a49df02024a6e90fc43607bbf796074&scope=&token_type=bearer');
+    expect(result).toBe('72de98c05a49df02024a6e90fc43607bbf796074');
 });

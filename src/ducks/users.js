@@ -46,11 +46,14 @@ export function fetchUsersInformations(users, isFirstPage = true) {
     return dispatch => {
         return Promise.all(users.map(
             user => {
-                return Promise.all([githubAPI.getUser(user.login), githubAPI.getUserLanguages(user.login)])
-                    .then(([userInformation, userLanguages]) => User.fromGithubOject({
-                            ...userInformation,
-                            languages: [...user.languages, ...userLanguages]
-                    }))
+                return githubAPI.getCompleteUserInformations(user.login)
+                    .then(response => {
+                        const userInformations = User.fromGithubOject(response);
+                        return User.fromGithubOject({
+                            ...userInformations,
+                            languages: [...user.languages, ...userInformations.languages]
+                        });
+                    });
             }))
             .then((responses) => dispatch(isFirstPage ? receiveUsers(responses) : receiveUsersIncrement(responses)))
             .catch(error => dispatch(failToReceiveUsers(githubAPI.handleErrorMessage(error))));
