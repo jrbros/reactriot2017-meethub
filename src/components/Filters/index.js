@@ -210,6 +210,9 @@ class Filters extends PureComponent {
                     <Button id='SearchButton' disabled={geoLocation.empty && languages.empty}>
                         Search
                     </Button>
+                    <a
+                        target="_blank"
+                        href="https://github.com/login/oauth/authorize?client_id=13c39cc405f7420477fe">Click hereto login!</a>
                 </Form>
             </StyledFilters>
         );

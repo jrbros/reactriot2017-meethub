@@ -42,7 +42,7 @@ export function buildSearchQuery(searchParameters, page=1) {
 
 export function authUser() {
     return fetch(
-        'http://github.com/login/oauth/authorize',
+        'https://github.com/login/oauth/authorize?client_id=13c39cc405f7420477fe',
         {
             method: 'GET',
         }
