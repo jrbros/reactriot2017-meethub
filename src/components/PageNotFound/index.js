@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import PageNotFoundImg from './notfound@2x.png';
@@ -9,7 +10,7 @@ const StyledPageNotFound = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 10rem 0 0;
+    margin: 8rem 0 0;
 `;
 
 const Title = styled.h3`
@@ -35,13 +36,19 @@ const Subtitle = styled.h4`
 
     /* Visual */
     color: ${props => props.theme.gray};
+
+    & a {
+        color: ${props => props.theme.gray};
+        text-decoration: none;
+        border-bottom: 1px solid ${props => props.theme.gray};
+    }
 `;
 
 const Error = () => (
   <StyledPageNotFound>
       <img src={PageNotFoundImg} alt='Page not found' width='198' height='77' />
       <Title>Page not found</Title>
-      <Subtitle>There's no fish here</Subtitle>
+      <Subtitle>There's no fish here, go back to <Link to='/'>home</Link></Subtitle>
   </StyledPageNotFound>
 );
 
