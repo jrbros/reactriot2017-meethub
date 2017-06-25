@@ -76,7 +76,7 @@ export class Meet extends PureComponent {
     }
 
     render() {
-        const { users: { usersInformations, loadingIncrement, empty},  } = this.props;
+        const { users: { usersInformations, loadingIncrement, empty },  } = this.props;
         return (
             <Wrapper>
                 <List>
@@ -92,7 +92,7 @@ export class Meet extends PureComponent {
                     }
                 </List>
                 {
-                    !empty ?
+                    !empty && usersInformations % 30 ?
                         <Button
                           onClick={this.handleIncrementPage}
                           loading={loadingIncrement}>

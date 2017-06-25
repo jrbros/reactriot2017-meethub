@@ -5,7 +5,7 @@ const StyledSpinnner = styled.div`
     width: 40px;
     height: 40px;
     position: relative;
-    margin: 100px auto;
+    margin: 50px auto;
 `;
 
 const bounce = keyframes`
@@ -25,7 +25,7 @@ const Bounce = styled.div`
     left: 0;
 
     /* Visual */
-    background-color: #00c9ff;
+    background-color: ${props => props.theme.blue};
     animation: ${bounce} 2.0s infinite ease-in-out;
     opacity: 0.6;
     border-radius: 50%;
@@ -33,7 +33,7 @@ const Bounce = styled.div`
 
 const Bounce2 = styled(Bounce)`
     animation-delay: -1.0s;
-    background-color: #92fe9d;
+    background-color: ${props => props.theme.green};
 `;
 
 const Spinner = () => (
