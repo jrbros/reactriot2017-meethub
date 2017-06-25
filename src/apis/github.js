@@ -80,6 +80,7 @@ function parseConnectedUserToken(token) {
     }
 }
 
+
 function buildSearchQuery(searchParameters, page=1) {
     /**
     * Build a github search query from a parameter object.
@@ -98,7 +99,8 @@ function buildSearchQuery(searchParameters, page=1) {
                formatParameter(parameter) :
                formatMultiParameter(parameter)
           ))
-          .join('+') + `&page=${page}`;
+          .filter(parameter => parameter)
+          .join('+') + `+type:user&page=${page}`;
 }
 
 

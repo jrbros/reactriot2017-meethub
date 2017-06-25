@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import SelectPlaces from 'react-select-places';
 import { lighten } from 'polished';
 
+import SelectPlace from './SelectPlace';
 import SelectLanguage from './SelectLanguage';
 
 const StyledFilters= styled.div`
@@ -53,77 +53,6 @@ const Button = styled.button`
     }
 `;
 
-const StyledSelectPlaces = styled(SelectPlaces)`
-    width: 432px;
-    height: 100%;
-
-    .Select-control {
-        border: none;
-        border-radius: 3px 0 0 3px;
-        height: 100%;
-
-        &:hover {
-            box-shadow: none;
-        }
-    }
-
-    .Select-placeholder {
-        padding: .4rem .8rem;
-    }
-
-    .Select-noresults {
-        font-size: 1rem;
-    }
-
-    .Select-value {
-        padding: .4rem .8rem;
-    }
-
-    .Select-control {
-        padding: .3rem .1rem;
-    }
-
-    .Select-placeholder, .Select--single > .Select-control .Select-value {
-        color: ${props => props.theme.grayLight};
-        font-size: .9375rem;
-    }
-
-    .Select-arrow-zone {
-        display: none;
-    }
-
-    .Select-menu-outer {
-        box-shadow: none;
-        width: 680px;
-        margin-top: 1px;
-        margin-left: -1px;
-        border-top: 0;
-        border-right: 1px solid ${props => props.theme.grayLight};
-        border-left: 1px solid ${props => props.theme.grayLight};
-        border-bottom: 1px solid ${props => props.theme.grayLight};
-    }
-
-    .Select-option {
-        color: ${props => props.theme.gray};
-        font-size: .9375rem;
-        padding: .4rem .8rem;
-    }
-
-    &.is-focused:not(.is-open) > .Select-control {
-        border-color: none;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-    }
-
-    &.is-searchable.is-open > .Select-control {
-        border-bottom: 2px solid #000000;
-    }
-
-    .Select-option.is-focused {
-        color: ${props => props.theme.gray};
-        background-color: ${lighten(0.4, '#00c9ff')};
-    }
-`;
 
 class Filters extends PureComponent {
     componentWillMount() {
@@ -160,6 +89,7 @@ class Filters extends PureComponent {
     }
 
     handleChangeLocation = location => {
+        console.log(location);
         this.props.updateGeoLocation(location);
     }
 
@@ -195,14 +125,9 @@ class Filters extends PureComponent {
                         onClick={activeSearch}
                         ref={node => (this.node = node)}
                     >
-                        <StyledSelectPlaces
-                          value={geoLocation.placeId ? {placeId: geoLocation.placeId} : geoLocation.location[0]}
-                          onChange={this.handleChangeLocation}
-                          clearable={false}
-                          placeholder='Select city...'
-                          autocompletionRequest={{
-                              types: ['(cities)']
-                            }}
+                        <SelectPlace
+                            value={geoLocation.placeId ? {placeId: geoLocation.placeId} : geoLocation.location[0]}
+                            onChange={this.handleChangeLocation}
                         />
                         <SelectLanguage
                             languages={languages.selectedLanguages}
