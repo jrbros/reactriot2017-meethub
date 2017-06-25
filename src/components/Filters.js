@@ -14,7 +14,7 @@ const StyledFilters= styled.div`
     width: 100%;
     height: 48px;
     margin-top: -18px;
-    z-index: 3;
+    z-index: 6;
     position: relative;
 
     /* Visual */
