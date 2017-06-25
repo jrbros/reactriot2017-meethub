@@ -1,8 +1,8 @@
 import fetch from '../lib/fetch';
 
 const API_TOKEN = '9589199d5bc89df0ed60621b0f43107f8e1be333';
-const CLIENT_ID = '6651283c4549f4d595d4';
-const CLIENT_SECRET = 'd81ef3645599a8b0807bb3cf1912dc963a4eb20c';
+const CLIENT_ID =  '13c39cc405f7420477fe' // '6651283c4549f4d595d4';
+const CLIENT_SECRET = 'a9c54956d5620216c482c8fa85d2119434f78133' // 'd81ef3645599a8b0807bb3cf1912dc963a4eb20c';
 const USER_CONNECTION_URL = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`;
 const CONNECTED_USER_TOKEN_API = `https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token`;
 const CONNECTED_USER_API = `https://api.github.com/user`;
