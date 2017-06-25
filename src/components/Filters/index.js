@@ -157,8 +157,7 @@ class Filters extends PureComponent {
     }
 
     handleChangeLanguage = languages => {
-        const activeLanguages = languages.filter(language => language.active).map(({name}) => name);
-        this.props.updateLanguages(activeLanguages);
+        this.props.updateLanguages(languages);
     }
 
     handleChangeLocation = location => {
@@ -204,6 +203,7 @@ class Filters extends PureComponent {
                             }}
                         />
                         <SelectLanguage
+                            languages={languages.selectedLanguages}
                             onChange={this.handleChangeLanguage}
                             disableSearch={disableSearch}
                         />
