@@ -9,17 +9,11 @@ const StyledEmptyState = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 400px;
-    height: 400px;
-
-    /* Visual */
-    background-color: #ffffff;
-    border-radius: 50%;
 `;
 
 const Title = styled.h3`
     /* Box model */
-    margin: 0;
+    margin: .4rem 0 0;
 
     /* Typography */
     font-size: 2.25rem;
