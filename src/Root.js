@@ -1,7 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
-import { Router, Route, hashHistory } from 'react-router';
+import { hashHistory } from 'react-router';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import App from './containers/App';
@@ -15,11 +16,14 @@ const history = syncHistoryWithStore(hashHistory, store);
 export default () => (
     <Provider store={store}>
         <ThemeProvider theme={theme}>
-            <App>
-                <Router history={history}>
-                    <Route path='/' component={Meet}/>
-                </Router>
-            </App>
-         </ThemeProvider>
+            <HashRouter history={history}>
+                <App>
+                    <Switch>
+                        <Route exact path='/' component={Meet} />
+                        <Route render={() => <div>Not found</div>} />
+                    </Switch>
+                </App>
+            </HashRouter>
+        </ThemeProvider>
     </Provider>
 );
