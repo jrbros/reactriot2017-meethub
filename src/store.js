@@ -8,7 +8,7 @@ import geoLocation from './ducks/geoLocation';
 import languages from './ducks/languages';
 import app from './ducks/app';
 
-export const history = createHashHistory();
+const history = createHashHistory();
 const middleware = routerMiddleware(history);
 
 const store = createStore(
@@ -21,5 +21,7 @@ const store = createStore(
     }),
     applyMiddleware(thunk, middleware)
 );
+
+export { history };
 
 export default store;
