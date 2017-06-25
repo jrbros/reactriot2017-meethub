@@ -21,8 +21,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "sed -i 's/\\/meethub\\//.\\//g' ./build/index.html && sed -i 's/\\/meethub\\//.\\//g' ./build/service-worker.js",
     "test": "react-scripts test --env=jsdom",
-    "deploy" : "npm test && npm run build && gh-pages -d build",
+    "predeploy" : "npm test && npm run build",
+    "deploy" : "gh-pages -d build",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
