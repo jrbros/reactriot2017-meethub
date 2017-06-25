@@ -32,12 +32,21 @@ export function buildSearchQuery(searchParameters, page=1) {
         searchParameters[parameter].map(value => `${parameter}:${value}`).join('+')
     );
     return Object.keys(searchParameters)
-          .map(parameter => (
+          .map(parameter => encodeURIComponent(
               isArray(parameter) === false ?
                formatParameter(parameter) :
                formatMultiParameter(parameter)
           ))
           .join('+') + `&page=${page}`;
+}
+
+export function authUser() {
+    return fetch(
+        'http://github.com/login/oauth/authorize',
+        {
+            method: 'GET',
+        }
+    )
 }
 
 export function searchUsers(searchQuery) {
@@ -47,7 +56,7 @@ export function searchUsers(searchQuery) {
      * @returns {Promise} The promise giving the users search results.
      */
     return fetch(
-        `${SEARCH_USERS_API}?utf8=✓&q=${searchQuery}`.replace('C#', 'C%23').replace('C++', '%2B%2B'),
+        `${SEARCH_USERS_API}?utf8=✓&q=${searchQuery}`,
         MAIN_CONFIG
     );
 }
