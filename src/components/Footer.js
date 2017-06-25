@@ -4,9 +4,11 @@ import styled from 'styled-components';
 const Wrapper = styled.div `
     display: flex;
     justify-content: center;
+    align-items: center;
     background-color: #ffffff;
     position: relative;
     z-index: 3;
+    padding: 0 1rem;
 `;
 
 const Copy = styled.p `
@@ -19,6 +21,13 @@ const Copy = styled.p `
     }
 `;
 
+const BackToTop = styled.a`
+    position: absolute;
+    right: 1rem;
+    top: 17px;
+    cursor: pointer;
+`;
+
 class Footer extends Component {
     render() {
         return (
@@ -26,6 +35,7 @@ class Footer extends Component {
                 <Copy>
                     Made with <span>&#10084;</span> in Bordeaux
                 </Copy>
+                <BackToTop onClick={() => window.scrollTo(0, 0)}>Back to top</BackToTop>
             </Wrapper>
         );
     }
