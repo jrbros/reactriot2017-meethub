@@ -41,7 +41,7 @@ const Header = () => (
       <Logo>
           <Link to='/'><img src={Meethub} alt='Meethub' width='192' height='41' /></Link>
       </Logo>
-      <Baseline>Push some filters, meet future friends</Baseline>
+      <Baseline>Push some filters, meet future tech friends</Baseline>
   </StyledHeader>
 );
 

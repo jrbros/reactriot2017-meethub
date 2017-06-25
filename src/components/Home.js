@@ -41,8 +41,8 @@ class Home extends Component {
         return (
             <Wrapper>
                 <Title>
-                    Search directly or connect with your GitHub account,<br/>
-                    and get personnalize results linked to your profil
+                    Search some techs directly or connect with your GitHub account<br/>
+                to get personnal matching and extra features !
                 </Title>
                 <Button href={USER_CONNECTION_URL}>Connect with GitHub</Button>
             </Wrapper>
